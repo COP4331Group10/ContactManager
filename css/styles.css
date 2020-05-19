@@ -1,0 +1,215 @@
+
+body
+{
+    background-color: darkblue;
+    background-position: top left;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+#title 
+{
+    font-size: 55px;
+    font-family: 'Varela Round', 'Calibri', Arial;
+    text-align: center;
+    color:black;
+    width: 100%;
+    text-shadow: 2px 2px gray;
+    margin-bottom: 1.5%;
+}
+
+#white-title
+{
+    font-size: 55px;
+    font-family: 'Varela Round', 'Calibri', Arial;
+    text-align: center;
+    color:white;
+    text-shadow: 2px 3px black;
+    width: 100%;
+    margin-bottom: 1.5%;
+}
+
+#inner-title
+{
+    font-family: 'Varela Round', 'Calibri', Arial;
+    text-align: center;
+    color: black;
+    width: 100%;
+    margin-bottom: 2%;
+}
+
+#loginDiv
+{
+    font-size: 30px;
+    width: 70%;
+    margin: auto;
+}
+
+#loggedInDiv
+{
+    font-size: 30px;
+    width: 70%;
+    margin-left: 15%;
+    padding: 25px;
+    background-color: #b2b2b2;
+}
+
+#accessUIDiv
+{
+    font-size: 30px;
+    width: 70%;
+    margin-left: 15%;
+    padding: 25px;
+    background-color: #b2b2b2;
+}
+
+.buttons
+{
+    font-size: 0.7em;
+    font-family: 'Varela Round', 'Calibri', Arial;
+    text-align: center;
+    color: white;
+    background-color: black;
+    border-radius: 50px;
+    border-color: goldenrod;
+    outline: 0;
+    height: 1.7em;
+    width: 8em;
+    margin-left: 38%;
+    
+    width: 25%;
+}
+
+.buttons:hover
+{
+    color: #FFFFFF;
+    background-color: goldenrod;
+    opacity: 95%;
+}
+
+#loginName
+{
+    font-size: 27px;
+}
+#loginPassword
+{
+	font-size: 27px;
+}
+#searchText
+{
+	font-size: 30px;
+}
+#colorText
+{
+	font-size: 30px;
+}
+
+input[type="text"],input[type="password"]
+{
+    border-radius: 25px;
+    border-color: goldenrod;
+    background-color: white;
+    text-align: center;
+    width: 50%;
+    margin-left: 25%;
+    margin-bottom: 2%;
+    font-size: 0.5em;
+    outline: 0;
+    font-family: 'Varela Round', 'Calibri', Arial;
+}
+
+#welcome
+{
+    border-radius: 20px;
+    border-width: 50%;
+    border-bottom: 1.3px solid goldenrod;
+    border-top: 1.3px solid goldenrod;
+    border-left: 1px solid goldenrod;
+    border-right: 1px solid goldenrod;
+    display: inline-block;
+    background-color: black;
+    font-size: 0.8em;
+    width: 36%;
+    text-align: center;
+    margin-left: 32%;
+    margin-bottom: 2%;
+    font-family: 'Varela Round', 'Calibri', Arial;
+    color: white;
+}
+
+#createAccount
+{
+    display: inline-block;
+    width: 90%;
+    margin-left: 5%;
+    font-size: 0.7em;
+    text-align: center;
+    font-family: 'Varela Round', 'Calibri', Arial;
+    color: black;
+}
+
+#haveAccount
+{
+    display: inline-block;
+    width: 90%;
+    margin-left: 5%;
+    font-size: 0.7em;
+    text-align: center;
+    font-family: 'Varela Round', 'Calibri', Arial;
+    color: white;
+    text-shadow: 1px 1px black;
+}
+
+#loginResult
+{
+    display: inline-block;
+    font-size: 0.8em;
+    width: 90%;
+    text-align: center;
+    margin-left: 5%;
+    margin-bottom: 2%;
+    font-family: 'Varela Round', 'Calibri', Arial;
+    color: #95060a;
+}
+
+#userName
+{
+    display: inline-block;
+    width: 80%;
+    margin-left: 10%;
+    text-align: center;
+}
+
+#logoutButton
+{
+    width: 20%;
+    margin-left: 40%;
+}
+
+select
+{
+    width: 30%;
+    margin-left: 35%;
+    margin-top: 2%;
+    font-size: 0.75em;
+    font-family: 'Varela Round', 'Calibri', Arial;
+}
+
+#colorSearchResult
+{
+    display: none;
+}
+
+#colorAddResult
+{
+    display: inline-block;
+    font-size: 0.8em;
+    width: 90%;
+    text-align: center;
+    margin-left: 5%;
+    margin-top: 2%;
+    margin-bottom: 1%;
+    font-family: 'Varela Round', 'Calibri', Arial;
+    color: #95060a;
+}
