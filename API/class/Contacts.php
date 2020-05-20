@@ -57,12 +57,11 @@ class Contacts
         $this->db = $this->db->returnConnection();
 	}
 	
-
  
     // create contact
     public function createContact() {
 		try {
-    		$sql = "INSERT INTO Contacts (firstName, lastName, phoneNumber, email, address, additionalNotes, userID)
+    		$sql = "INSERT INTO Contacts (FirstName, LastName, PhoneNumber, Email, Address, AdditionalNotes, UserID)
 					VALUES (:firstName, :lastName, :phoneNumber, :email, :address, :additionalNotes, :userID)";
     		$data = [
 			    'firstName' => $this->_firstName,
@@ -86,13 +85,13 @@ class Contacts
     // update contact
     public function updateContact() {
         try {
-		    $sql = "UPDATE Contacts SET firstName=:firstName,
-									   lastName=:lastName,
-									   phoneNumber=:phoneNumber,
-									   email=:email,
-									   address=:address,
-									   additionalNotes=:additionalNotes							 
-								   WHERE id=:contact_id";
+		    $sql = "UPDATE Contacts SET FirstName=:firstName,
+									    LastName=:lastName,
+									    PhoneNumber=:phoneNumber,
+									    Email=:email,
+									    Address=:address,
+									    AdditionalNotes=:additionalNotes							 
+								    WHERE ID=:contact_id";
 		    $data = [
 			    'firstName' => $this->_firstName,
 				'lastName' => $this->_lastName,
@@ -114,7 +113,7 @@ class Contacts
     // get contact
     public function getContact() {
     	try {
-    		$sql = "SELECT * FROM Contacts WHERE id=:contact_id";
+    		$sql = "SELECT * FROM Contacts WHERE ID=:contact_id";
 		    $stmt = $this->db->prepare($sql);
 		    $data = ['contact_id' => $this->_id];
 		    $stmt->execute($data);
@@ -142,7 +141,7 @@ class Contacts
     // delete contact
     public function deleteContact() {
     	try {
-	    	$sql = "DELETE FROM Contacts WHERE id=:contact_id";
+	    	$sql = "DELETE FROM Contacts WHERE ID=:contact_id";
 		    $stmt = $this->db->prepare($sql);
 		    $data = [
 		    	'contact_id' => $this->_id
