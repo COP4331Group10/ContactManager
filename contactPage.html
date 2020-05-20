@@ -7,16 +7,27 @@
     <link href="https://fonts.googleapis.com/css?family=Varela+Round|Calibri" rel="stylesheet">
     
 </head>    
-<body style =   "background-image: url('images/ucf6.jpg'),url('images/ucf6b.jpg'); 
-				background-repeat: no-repeat, repeat-y;
-				background-position-x: 50%;
-                background-position-y: 20%;">
+<body>
+    <h1 id="title">My Knightacts</h1>
 
-    <h1 id="white-title">My Knightacts</h1>
+    <button type="button" id="logoutButton" class="buttons" onclick="doLogout();"> </button>
 
-    <div id="">
+    <div id="searchOrAdd">
+        <!--Perform add contact on click-->
+        <button type="button" id="addContact" class="buttons" onclick="addContact();"> Add New Knightact </button><br />
+        <span id="contactAddResult"></span>
 
+        <!--The search bar automatically updates with each character -->
+       <input type="text" id="searchBar" placeholder="Search..." oninput="searchContacts(this.value);"/>
+        <span id="contactSearchResult"></span>
+    </div>
 
+    <div id="accessUIDiv">
+        <br />
+        <p id="colorList">
+        </p><br /><br />
+        <!--Here-->
+        
     </div>
     
 </body>

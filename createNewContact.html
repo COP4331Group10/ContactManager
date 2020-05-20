@@ -7,16 +7,19 @@
     <link href="https://fonts.googleapis.com/css?family=Varela+Round|Calibri" rel="stylesheet">
     
 </head>    
-<body style =   "background-image: url('images/ucf7.jpg'),url('images/ucf7b.jpg'); 
-                background-repeat: no-repeat, repeat-y;
-                background-position-y: 30%;";>
+<body>
 
-    <h1 id="white-title">Create New Knightact</h1>
+    <h1 id="title">Create New Knightact</h1>
 
-    <div id="">
-
+    <div id="contact">
+        <input type="text" id="loginName" placeholder="Create a username" /><br />
 
     </div>
-    
+
+    <div id = "buttonDiv">
+        <div class="inner"><button type="button" id="backButton" class="buttons" onclick= "returnToContactPage()";> Back </button></div>
+        <div class="inner"><button type="button" id="okButton" class="buttons" onclick= "saveContact()";> Charge On! </button></div>
+    </div>
+     
 </body>
 </html>
