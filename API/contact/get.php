@@ -24,7 +24,7 @@ switch($requestMethod) {
 		echo $js_encode;
 		break;
 	default:
-	header("HTTP/1.0 405 Method Not Allowed");
+		header("HTTP/1.0 405 Method Not Allowed");
 	break;
 }
 ?>	

@@ -21,9 +21,6 @@ class Contacts
 	private $_dateUpdated;
 	private $_additionalNotes;
 	
-	public function setId($id) {
-        $this->_id = $id;
-    }
 	public function setUserID($userID) {
         $this->_userID = $userID;
     }
@@ -48,21 +45,20 @@ class Contacts
 	public function setAdditionalNotes($additionalNotes) {
         $this->_additionalNotes = $additionalNotes;
 	}
-	public function setDateUpdated(){
-		$this->dateUpdated = 'CURRENT_TIMESTAMP()'; 
-	}
+	#public function setDateUpdated(){
+	#	$this->dateUpdated = 'CURRENT_TIMESTAMP()'; 
+	#}
    
     public function __construct() {
         $this->db = new DBConnection();
         $this->db = $this->db->returnConnection();
 	}
 	
-
  
     // create contact
     public function createContact() {
 		try {
-    		$sql = "INSERT INTO Contacts (firstName, lastName, phoneNumber, email, address, additionalNotes, userID)
+    		$sql = "INSERT INTO Contacts (FirstName, LastName, PhoneNumber, Email, Address, AdditionalNotes, UserID)
 					VALUES (:firstName, :lastName, :phoneNumber, :email, :address, :additionalNotes, :userID)";
     		$data = [
 			    'firstName' => $this->_firstName,
@@ -86,13 +82,13 @@ class Contacts
     // update contact
     public function updateContact() {
         try {
-		    $sql = "UPDATE Contacts SET firstName=:firstName,
-									   lastName=:lastName,
-									   phoneNumber=:phoneNumber,
-									   email=:email,
-									   address=:address,
-									   additionalNotes=:additionalNotes							 
-								   WHERE id=:contact_id";
+		    $sql = "UPDATE Contacts SET FirstName=:firstName,
+									    LastName=:lastName,
+									    PhoneNumber=:phoneNumber,
+									    Email=:email,
+									    Address=:address,
+									    AdditionalNotes=:additionalNotes							 
+								    WHERE ID=:contact_id";
 		    $data = [
 			    'firstName' => $this->_firstName,
 				'lastName' => $this->_lastName,
@@ -109,24 +105,10 @@ class Contacts
 		} catch (Exception $e) {
 			die("There's an error in the query!");
 		}
-    }
-	
-    // get contact
-    public function getContact() {
-    	try {
-    		$sql = "SELECT * FROM Contacts WHERE id=:contact_id";
-		    $stmt = $this->db->prepare($sql);
-		    $data = ['contact_id' => $this->_id];
-		    $stmt->execute($data);
-		    $result = $stmt->fetch(\PDO::FETCH_ASSOC);
-            return $result;
-		} catch (Exception $e) {
-		    die("There's an error in the query!");
-		}
 	}
 	
 	// getAll contacts
-    public function getAllStudent() {
+    public function getAllContact() {
     	try {
     		$sql = "SELECT * FROM Contacts";
 		    $stmt = $this->db->prepare($sql);
@@ -137,12 +119,40 @@ class Contacts
 		} catch (Exception $e) {
 		    die("There's an error in the query!");
 		}
+	}
+	
+    // get contact
+    public function getContact() {
+    	try {
+    		$sql = "SELECT * FROM Contacts WHERE ID=:contact_id";
+		    $stmt = $this->db->prepare($sql);
+		    $data = ['contact_id' => $this->_id];
+		    $stmt->execute($data);
+		    $result = $stmt->fetch(\PDO::FETCH_ASSOC);
+            return $result;
+		} catch (Exception $e) {
+		    die("There's an error in the query!");
+		}
+	}
+	
+	// get user's contacts
+    public function getUserContacts() {
+    	try {
+    		$sql = "SELECT * FROM Contacts WHERE UserID=:user_id";
+		    $stmt = $this->db->prepare($sql);
+			$data = ['user_id' => $this->_userID];
+		    $stmt->execute($data);
+		    $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+            return $result;
+		} catch (Exception $e) {
+		    die("There's an error in the query!");
+		}
     }
  
     // delete contact
     public function deleteContact() {
     	try {
-	    	$sql = "DELETE FROM Contacts WHERE id=:contact_id";
+	    	$sql = "DELETE FROM Contacts WHERE ID=:contact_id";
 		    $stmt = $this->db->prepare($sql);
 		    $data = [
 		    	'contact_id' => $this->_id
