@@ -1,20 +1,20 @@
 <?php
-header("Content-Type: application/json; charset=UTF-8");
-header("Access-Control-Allow-Methods: POST");
+	header("Content-Type: application/json; charset=UTF-8");
+	header("Access-Control-Allow-Methods: POST");
 
-$requestMethod = $_SERVER["REQUEST_METHOD"];
-include('../class/Contacts.php');
-$contact = new Contacts();
+	$requestMethod = $_SERVER["REQUEST_METHOD"];
+	include('../class/Contacts.php');
+	$contact = new Contacts();
 
-$inData = getRequestInfo();
+	$inData = getRequestInfo();
 
-$searchResults = "";
-$searchCount = 0;
+	$searchResults = "";
+	$searchCount = 0;
 
-$conn = new mysqli("localhost", "116751", "password", "116751");
+	$conn = new mysqli("localhost", "116751", "password", "116751");
 
-// get posted data
-$data = json_decode(file_get_contents("php://input"));
+	// get posted data
+	$data = json_decode(file_get_contents("php://input"));
 
 	if ($conn->connect_error){
 		returnWithError( $conn->connect_error );
@@ -64,5 +64,4 @@ $data = json_decode(file_get_contents("php://input"));
 		$retValue = '{"results":[' . $searchResults . '],"error":""}';
 		sendResultInfoAsJson( $retValue );
 	}
-}
 ?>	
