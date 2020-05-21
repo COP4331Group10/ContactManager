@@ -11,15 +11,50 @@
 
     <h1 id="title">Create New Knightact</h1>
 
-    <div id="contact">
-        <input type="text" id="loginName" placeholder="Create a username" /><br />
-
+    <div class="container">
+        <div class="row">
+                <div class="col-left">
+                    <label for="firstname">First Name*</label></div>
+                <div class="col-right">
+                    <input type="text" id="firstname" name= "firstname" placeholder="First Name"></div>
+        </div>
+        <div class="row">
+            <div class="col-left">
+                <label for="lastname">Last Name*</label></div>
+            <div class="col-right">
+                <input type="text" id="lastname" name= "lastname" placeholder="Last Name"></div>
+        </div>
+        <div class="row">
+            <div class="col-left">
+                <label for="email">Email*</label></div>
+            <div class="col-right">
+                <input type="text" id="email" name= "email" placeholder="Email"></div>
+        </div>
+        <div class="row">
+            <div class="col-left">
+                <label for="number">Phone Number*</label></div>
+            <div class="col-right">
+                <input type="text" id="number" name="number" placeholder="123-456-7890"></div>
+        </div>
+        <div class="row">
+            <div class="col-left">
+                <label for="address">Address*</label></div>
+            <div class="col-right">
+                <input type="text" id="address" name="address" placeholder="1234 NW 59TH ST."></div>
+        </div>
+        <div class="row">
+            <div class="col-left">
+                <label for="notes">Notes</label></div>
+            <div class="col-right">
+                <textarea id="notes" name="notes" placeholder=""></textarea></div>
+        </div>
+        <span id="required">*These are required fields.</span><br>
     </div>
 
     <div id = "buttonDiv">
         <div class="inner"><button type="button" id="backButton" class="buttons" onclick= "returnToContactPage()";> Back </button></div>
         <div class="inner"><button type="button" id="okButton" class="buttons" onclick= "saveContact()";> Charge On! </button></div>
     </div>
-     
+    
 </body>
 </html>

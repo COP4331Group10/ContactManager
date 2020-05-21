@@ -38,18 +38,6 @@ body
     margin: auto;
 }
 
-#accessUIDiv /* big block in main contact page*/
-{
-    border-radius: 2em;
-    font-size: 30px;
-    width: 80%;
-    margin-top: 2%;
-    margin-left: 8%;
-    align-self: center;
-    padding: 25px;
-    background-color: goldenrod;
-}
-
 #searchOrAdd
 {
     border-radius: 2em;
@@ -74,6 +62,7 @@ body
     margin-left: 38%;
     
     width: 25%;
+    cursor: pointer;
 }
 
 .buttons:hover
@@ -87,10 +76,12 @@ body
 {
     font-size: 27px;
 }
+
 #loginPassword
 {
 	font-size: 27px;
 }
+
 #searchBar
 {
     background: url(../images/search_icon.png) no-repeat scroll .5px .5px;
@@ -102,7 +93,6 @@ body
     text-align: justify;
     display: inline-block;
 }
-
 
 #addContact
 {
@@ -121,7 +111,7 @@ body
     background-color: goldenrod;
 }
 
-input[type="text"],input[type="password"]
+input[type="text"], input[type="password"]
 {
     border-radius: 25px;
     border-color: goldenrod;
@@ -263,8 +253,6 @@ input[type="text"],input[type="password"]
     background-color: red;
 }
 
-
-
 select
 {
     width: 30%;
@@ -290,4 +278,89 @@ select
     margin-bottom: 1%;
     font-family: 'Varela Round', 'Calibri', Arial;
     color: #95060a;
+}
+
+#notes
+{
+    font-family: 'Varela Round', 'Calibri', Arial;
+    width: 85%;
+    border: 2px solid black;
+    border-radius: 4px;
+    outline: 0;
+    padding-left: 2%;
+    margin-top: 4%;
+    margin-left: 12%;
+    resize: none;
+    font-size: 0.5em;
+    max-height: 400%;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-border-image: border-box;
+    border-image: auto;
+    height: 70px;
+  }
+
+.container 
+{
+    font-family: 'Varela Round', 'Calibri', Arial;
+    border-radius: .5em;
+    font-size: 25px;
+    width: 50%;
+    margin-top: 2%;
+    margin: auto;
+    padding : 15px;
+    padding-left: 1%;
+    background-color: goldenrod;
+}
+
+/* Clear floats after the columns */
+.row:after 
+{
+    content: "";
+    display: table;
+    clear: both;
+}
+
+label 
+{
+    padding-left: 8%;
+    padding-top: 6%;
+    display: inline-block;
+}
+
+.col-left
+{
+    float: left;
+    width: 40%;
+    margin-top: 2px;
+    margin-right: -10%;
+}
+  
+.col-right 
+{
+    font-size: 150%;
+    float: left;
+    margin-top: 2px;
+    width: 70%;
+    margin-right: 0;
+}
+
+#required
+{
+    font-family: 'Varela Round', 'Calibri', Arial;
+    color: darkred;
+    font-size: 0.6em;
+}
+
+#firstname, #lastname, #email, #number, #address{
+    border-color: black;
+    padding-left: 3.5%;
+    text-align: justify;
+    font-size-adjust: initial;
+    width: 80%;
+    margin-left: 12%;
+    margin-bottom: 2%;
+    font-size: 0.5em;
+    outline: 0;
+    font-family: 'Varela Round', 'Calibri', Arial;
 }
