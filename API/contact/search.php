@@ -15,18 +15,19 @@ if ($conn->connect_error){
 	
 	else{
 		
-		$sql = "Search for contacts where Name like '%" . $inData["search"] . "%' and UserID = " . $inData["userId"];
-		$result = $conn->query($sql);
-		
-		if ($result->num_rows > 0){
-			while($row = $result->fetch_assoc()){
-				if( $searchCount > 0 ){
-					$searchResults .= ",";
-				}
-				
-				$searchCount++;
-				$searchResults .= '"' . $row["Name"] . '"';
-			}
+		$sql = "select firstName from Contacts where firstName like '%" . $inData["search"] . "%' and UserID=" . $inData["userId"];
+        $result = $conn->query($sql);
+
+        if ($result->num_rows > 0){
+            while($row = $result->fetch_assoc())
+            {
+                if( $searchCount > 0 )
+                {
+                    $searchResults .= ",";
+                }
+                $searchCount++;
+                $searchResults .= '"' . $row["FirstName"] . '"';
+            }
 		}
 		
 		else{
