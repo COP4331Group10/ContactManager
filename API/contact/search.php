@@ -6,10 +6,17 @@ $requestMethod = $_SERVER["REQUEST_METHOD"];
 include('../class/Contacts.php');
 $contact = new Contacts();
 
+$inData = getRequestInfo();
+
+$searchResults = "";
+$searchCount = 0;
+
+$conn = new mysqli("localhost", "116751", "password", "116751");
+
 // get posted data
 $data = json_decode(file_get_contents("php://input"));
 
-if ($conn->connect_error){
+	if ($conn->connect_error){
 		returnWithError( $conn->connect_error );
 	}
 	
