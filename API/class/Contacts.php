@@ -21,9 +21,6 @@ class Contacts
 	private $_dateUpdated;
 	private $_additionalNotes;
 	
-	public function setId($id) {
-        $this->_id = $id;
-    }
 	public function setUserID($userID) {
         $this->_userID = $userID;
     }
@@ -48,9 +45,9 @@ class Contacts
 	public function setAdditionalNotes($additionalNotes) {
         $this->_additionalNotes = $additionalNotes;
 	}
-	public function setDateUpdated(){
-		$this->dateUpdated = 'CURRENT_TIMESTAMP()'; 
-	}
+	#public function setDateUpdated(){
+	#	$this->dateUpdated = 'CURRENT_TIMESTAMP()'; 
+	#}
    
     public function __construct() {
         $this->db = new DBConnection();
@@ -108,7 +105,21 @@ class Contacts
 		} catch (Exception $e) {
 			die("There's an error in the query!");
 		}
-    }
+	}
+	
+	// getAll contacts
+    public function getAllContact() {
+    	try {
+    		$sql = "SELECT * FROM Contacts";
+		    $stmt = $this->db->prepare($sql);
+ 
+		    $stmt->execute();
+		    $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+            return $result;
+		} catch (Exception $e) {
+		    die("There's an error in the query!");
+		}
+	}
 	
     // get contact
     public function getContact() {
@@ -124,13 +135,13 @@ class Contacts
 		}
 	}
 	
-	// getAll contacts
-    public function getAllStudent() {
+	// get user's contacts
+    public function getUserContacts() {
     	try {
-    		$sql = "SELECT * FROM Contacts";
+    		$sql = "SELECT * FROM Contacts WHERE UserID=:user_id";
 		    $stmt = $this->db->prepare($sql);
- 
-		    $stmt->execute();
+			$data = ['user_id' => $this->_userID];
+		    $stmt->execute($data);
 		    $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
             return $result;
 		} catch (Exception $e) {

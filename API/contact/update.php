@@ -1,4 +1,7 @@
 <?php
+header("Content-Type: application/json; charset=UTF-8");
+header("Access-Control-Allow-Methods: PUT");
+
 $requestMethod = $_SERVER["REQUEST_METHOD"];
 
 include('../class/Contacts.php');
@@ -17,7 +20,7 @@ switch($requestMethod) {
 	    $contact->setEmail($data->email);
 	    $contact->setAddress($data->address);
 		$contact->setAdditionalNotes($data->additionalNotes);
-		$contact->setDateUpdated();
+		//$contact->setDateUpdated();
 
 
 		$contactInfo = $contact->updateContact();
