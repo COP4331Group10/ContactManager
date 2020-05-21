@@ -6,27 +6,35 @@ $requestMethod = $_SERVER["REQUEST_METHOD"];
 include('../class/Contacts.php');
 $contact = new Contacts();
 
+$inData = getRequestInfo();
+
+$searchResults = "";
+$searchCount = 0;
+
+$conn = new mysqli("localhost", "116751", "password", "116751");
+
 // get posted data
 $data = json_decode(file_get_contents("php://input"));
 
-if ($conn->connect_error){
+	if ($conn->connect_error){
 		returnWithError( $conn->connect_error );
 	}
 	
 	else{
 		
-		$sql = "Search for contacts where Name like '%" . $inData["search"] . "%' and UserID = " . $inData["userId"];
-		$result = $conn->query($sql);
-		
-		if ($result->num_rows > 0){
-			while($row = $result->fetch_assoc()){
-				if( $searchCount > 0 ){
-					$searchResults .= ",";
-				}
-				
-				$searchCount++;
-				$searchResults .= '"' . $row["Name"] . '"';
-			}
+		$sql = "select firstName from Contacts where firstName like '%" . $inData["search"] . "%' and UserID=" . $inData["userId"];
+        $result = $conn->query($sql);
+
+        if ($result->num_rows > 0){
+            while($row = $result->fetch_assoc())
+            {
+                if( $searchCount > 0 )
+                {
+                    $searchResults .= ",";
+                }
+                $searchCount++;
+                $searchResults .= '"' . $row["FirstName"] . '"';
+            }
 		}
 		
 		else{
