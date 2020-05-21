@@ -22,7 +22,7 @@ $data = json_decode(file_get_contents("php://input"));
 	
 	else{
 		
-		$sql = "select firstName from Contacts where firstName like '%" . $inData["search"] . "%' and UserID=" . $inData["userId"];
+		$sql = "select FirstName from Contacts where FirstName like '%" . $inData["search"] . "%' and UserID=" . $inData["userId"];
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0){
