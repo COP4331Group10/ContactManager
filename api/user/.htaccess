@@ -1,3 +1,4 @@
-RewriteEngine On    
+RewriteEngine On
 	# Turn on the rewriting engine
-RewriteRule ^createUser createUser.php [NC,L]
+RewriteRule ^create create.php [NC,L]
+RewriteRule ^login login.php [NC,L]
