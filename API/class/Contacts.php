@@ -12,16 +12,16 @@ class Contacts
     protected $db;
     private $_id;
     private $_firstName;
-	private $_lastName;
-	private $_userID;
+    private $_lastName;
+    private $_userID;
     private $_phoneNumber;
-	private $_address;
-	private $_email;
+    private $_address;
+    private $_email;
     private $_dateAdded;
-	private $_dateUpdated;
-	private $_additionalNotes;
+    private $_dateUpdated;
+    private $_additionalNotes;
 	
-	public function setUserID($userID) {
+    public function setUserID($userID) {
         $this->_userID = $userID;
     }
     public function setContactID($contactID) {
@@ -42,17 +42,17 @@ class Contacts
     public function setEmail($email) {
         $this->_email = $email;
 	}
-	public function setAdditionalNotes($additionalNotes) {
+    public function setAdditionalNotes($additionalNotes) {
         $this->_additionalNotes = $additionalNotes;
-	}
-	public function setDateUpdated(){
-		$this->dateUpdated = 'CURRENT_TIMESTAMP()'; 
-	}
+    }
+    public function setDateUpdated(){
+        $this->dateUpdated = 'CURRENT_TIMESTAMP()'; 
+    }
    
     public function __construct() {
         $this->db = new DBConnection();
         $this->db = $this->db->returnConnection();
-	}
+   }
 	
  
     // create contact
@@ -77,9 +77,9 @@ class Contacts
 		} catch (Exception $e) {
     		die("There's an error in the query!");
 		}
-	}
-	
-	// update contact
+    }
+ 
+    // update contact
     public function updateContact() {
         try {
 		    $sql = "UPDATE Contacts SET FirstName=:firstName,
@@ -101,8 +101,7 @@ class Contacts
 			$stmt = $this->db->prepare($sql);
 			$stmt->execute($data);
 			$status = $stmt->rowCount();
-			return $status;
-			
+            return $status;
 		} catch (Exception $e) {
 			die("There's an error in the query!");
 		}
@@ -164,6 +163,6 @@ class Contacts
 	    } catch (Exception $e) {
 		    die("There's an error in the query!");
 		}
-	}
+    }
 }
-?>	
+?>		

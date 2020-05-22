@@ -16,10 +16,11 @@ switch($requestMethod) {
 		$contact->setContactID($data->id);
 		$contact->setFirstName($data->firstName);
 		$contact->setLastName($data->lastName);
-	    $contact->setPhoneNumber($data->phoneNumber);
-	    $contact->setEmail($data->email);
-	    $contact->setAddress($data->address);
+	        $contact->setPhoneNumber($data->phoneNumber);
+	        $contact->setEmail($data->email);
+	        $contact->setAddress($data->address);
 		$contact->setAdditionalNotes($data->additionalNotes);
+                $contact->setDateUpdated();
 
 		$contactInfo = $contact->updateContact();
 
@@ -35,4 +36,4 @@ switch($requestMethod) {
 		header("HTTP/1.0 405 Method Not Allowed");
 	break;
 }
-?>
+?>		
