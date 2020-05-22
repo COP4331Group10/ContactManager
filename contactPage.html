@@ -12,22 +12,42 @@
 
     <button type="button" id="logoutButton" class="buttons" onclick="doLogout();"> </button>
 
+    <!-- Black box with search and add -->
     <div id="searchOrAdd">
-        <!--Perform add contact on click-->
-        <button type="button" id="addContact" class="buttons" onclick="addContact();"> Add New Knightact </button><br />
-        <span id="contactAddResult"></span>
-
-        <!--The search bar automatically updates with each character -->
-       <input type="text" id="searchBar" placeholder="Search..." oninput="searchContacts(this.value);"/>
-        <span id="contactSearchResult"></span>
+        <div class="row">
+            <div class="left">
+                <!--Perform add contact on click-->
+                <button type="button" id="addContact" class="buttons" onclick="addContact();"> Add New Knightact </button><br />
+                <span id="contactAddResult"></span>
+            </div>
+            <div class="right">
+                <!--The search bar automatically updates with each character -->
+                <input type="text" id="searchBar" placeholder="Search..." oninput="searchContacts(this.value);"/>
+                <span id="contactSearchResult"></span>
+            </div>
+        </div>
     </div>
 
-    <div id="accessUIDiv">
-        <br />
-        <p id="colorList">
-        </p><br /><br />
-        <!--Here-->
-        
+    <!-- Here is where the contacts will apprear as a button list-->
+    <!-- Clicking them will take you to the edit contact page-->
+    <div class="container2">
+        <button type="button" id="contact" onclick="editContact();">Knightro</button>
+        <button>Knugget</button>
+        <button>Knightro</button>
+        <button>Knugget</button>
+        <button>Knightro</button>
+        <button>Knugget</button>
+        <button>Knightro</button>
+        <button>Knugget</button>
+        <button>Knightro</button>
+        <button>Knugget</button>
+        <button>Knightro</button>
+        <button>Knugget</button>
+        <button>Knightro</button>
+        <button>Knugget</button>
+        <button>Knightro</button>
+        <button>Knugget</button>
+        <button>Knightro</button>
     </div>
     
 </body>
