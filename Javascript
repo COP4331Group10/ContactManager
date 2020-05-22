@@ -1,4 +1,3 @@
-// This is all his original code, I haven't modified anything here.
 var urlBase = 'http://COP4331-3.com/LAMPAPI'; //have to chang to our website url
 var extension = 'php';
 
@@ -141,7 +140,8 @@ function addContact()
   var phoneNumber = document.getElementById("phoneNumber").value;
   var addressContact = document.getElementById("addressContact").value;
   var notesContact = document.getElementById("notesContact").value;
-	document.getElementById("firstNameAddResult").innerHTML = "";
+  
+  document.getElementById("firstNameAddResult").innerHTML = "";
   document.getElementById("lastNameAddResult").innerHTML = "";
   document.getElementById("emailContactAddResult").innerHTML = "";
   document.getElementById("phoneNumberAddResult").innerHTML = "";
