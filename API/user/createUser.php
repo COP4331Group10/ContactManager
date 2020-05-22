@@ -3,25 +3,20 @@ header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Methods: POST");
 
 $requestMethod = $_SERVER["REQUEST_METHOD"];
-include('../class/Contacts.php');
-$contact = new Contacts();
+include('../class/Users.php');
+$user = new Users();
 
 // get posted data
 $data = json_decode(file_get_contents("php://input"));
 
 switch($requestMethod) {
 	case 'POST':
-		$contact->setUserID($data->UserID);
-		$contact->setFirstName($data->FirstName);
-		$contact->setLastName($data->LastName);
-	    $contact->setPhoneNumber($data->PhoneNumber);
-	    $contact->setEmail($data->Email);
-	    $contact->setAddress($data->Address);
-	    $contact->setAdditionalNotes($data->AdditionalNotes);
+		$user->setUsername($data->username);
+		$user->setPassword($data->password);
 		
-		$contactInfo = $contact->createContact();
+		$userInfo = $user->createUser();
  
-		if(!empty($contactInfo)) {
+		if(!empty($userInfo)) {
 			header("HTTP/1.0 200 OK");
         } else {
 			header("HTTP/1.0 409 Conflict");

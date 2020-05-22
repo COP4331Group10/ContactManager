@@ -13,14 +13,14 @@ $data = json_decode(file_get_contents("php://input"));
 
 switch($requestMethod) {	
 	case 'POST':
-		$contact->setContactID($data->id);
-		$contact->setFirstName($data->firstName);
-		$contact->setLastName($data->lastName);
-	        $contact->setPhoneNumber($data->phoneNumber);
-	        $contact->setEmail($data->email);
-	        $contact->setAddress($data->address);
-		$contact->setAdditionalNotes($data->additionalNotes);
-                $contact->setDateUpdated();
+		$contact->setContactID($data->ID);
+		$contact->setFirstName($data->FirstName);
+		$contact->setLastName($data->LastName);
+	    $contact->setPhoneNumber($data->PhoneNumber);
+	    $contact->setEmail($data->Email);
+	    $contact->setAddress($data->Address);
+		$contact->setAdditionalNotes($data->AdditionalNotes);
+        $contact->setDateUpdated();
 
 		$contactInfo = $contact->updateContact();
 
