@@ -13,7 +13,6 @@ $data = json_decode(file_get_contents("php://input"));
 
 switch($requestMethod) {
 	case 'POST':
-
 		$contact->setContactID($data->ID);
 		$contact->setFirstName($data->FirstName);
 		$contact->setLastName($data->LastName);
@@ -25,8 +24,10 @@ switch($requestMethod) {
 		$contactInfo = $contact->updateContact();
 
 		if(!empty($contactInfo)) {
-			$js_encode = json_encode(array('status'=>TRUE, 'message'=>'Contact updated successfully.'), true);
+			header("HTTP/1.0 200 OK");
+			$js_encode = json_encode(array('status'=>TRUE, 'message'=>'Contact updated successfully'), true);
 		} else {
+			header("HTTP/1.0 409 Conflict");
 			$js_encode = json_encode(array('status'=>FALSE, 'message'=>'Contact update failed'), true);
 		}
 

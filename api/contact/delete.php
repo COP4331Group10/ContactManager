@@ -19,10 +19,12 @@ switch ($requestMethod)
 
 		if (!empty($contactInfo))
 		{
+			header("HTTP/1.0 200 OK");
 			$js_encode = json_encode(array('status'=>TRUE, 'message'=>'Contact deleted successfully'), true);
 		}
 		else
 		{
+			header("HTTP/1.0 409 Conflict");
 			$js_encode = json_encode(array('status'=>FALSE, 'message'=>'Contact deletetion failed'), true);
 		}
 
