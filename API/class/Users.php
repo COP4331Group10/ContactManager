@@ -16,13 +16,10 @@ class Users
 	public function setUsername($Login) {
         $this->_username = $Login;
     }
+	
     public function setPassword($Password) {
         $this->_usernamePW = $Password;
     }
-	
-	#public function setDateUpdated(){
-	#	$this->dateUpdated = 'CURRENT_TIMESTAMP()'; 
-	#}
    
     public function __construct() {
         $this->db = new DBConnection();
@@ -37,5 +34,6 @@ class Users
     		$data = [
 			    'login' => $this->_username,
 				'password' => $this->_usernamePW
-
+		}
+	}
 ?>
