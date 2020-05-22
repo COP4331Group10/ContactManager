@@ -11,7 +11,9 @@ function doSignup()
   var newUser = document.getElementById("signupText").value;
 	document.getElementById("signupResult").innerHTML = "";
 	
-	var jsonPayload = '{"Login" : "' + loginName + '","Password" : "' + passwordName + '", "userId" : ' + userId + '}';
+	var login = document.getElementById("loginName").value;
+	var password = document.getElementById("loginPassword").value;
+	var hash = md5( password );
 	var url = urlBase + '/Signup.' + extension;
 	
 	var xhr = new XMLHttpRequest();
@@ -42,11 +44,11 @@ function doLogin()
 	
 	var login = document.getElementById("loginName").value;
 	var password = document.getElementById("loginPassword").value;
-//	var hash = md5( password );
+	var hash = md5( password );
 	
 	document.getElementById("loginResult").innerHTML = "";
 
-//	var jsonPayload = '{"login" : "' + login + '", "password" : "' + hash + '"}';
+	var jsonPayload = '{"login" : "' + login + '", "password" : "' + hash + '"}';
 	var jsonPayload = '{"login" : "' + login + '", "password" : "' + password + '"}';
 	var url = urlBase + '/Login.' + extension;
 
