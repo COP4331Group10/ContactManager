@@ -25,18 +25,12 @@ switch ($requestMethod)
 		if (!empty($contactInfo))
 		{
 			header("HTTP/1.0 200 OK");
-			$js_encode = json_encode(array(
-				'status' => true,
-				'message' => 'Contact created Successfully'
-			) , true);
+			$js_encode = json_encode(array('status' => true, 'message' => 'Contact created Successfully'), true);
 		}
 		else
 		{
 			header("HTTP/1.0 409 Conflict");
-			$js_encode = json_encode(array(
-				'status' => false,
-				'message' => 'Contact creation failed'
-			) , true);
+			$js_encode = json_encode(array('status' => false, 'message' => 'Contact creation failed'), true);
 		}
 
 		header('Content-Type: application/json');

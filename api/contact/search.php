@@ -63,22 +63,13 @@ function sendResultInfoAsJson($obj)
 
 function returnWithError($err)
 {
-	$retValue = json_encode(array(
-		'status' => false,
-		'message' => $err,
-		'contacts' => ''
-	) , true);
-	//$retValue = '{"id":0,"firstName":"","lastName":"","error":"' . $err . '"}';
+	$retValue = json_encode(array('status' => false, 'message' => $err, 'contacts' => ''), true);
 	sendResultInfoAsJson($retValue);
 }
 
 function returnWithInfo($searchResults)
 {
-	$retValue = json_encode(array(
-		'status' => true,
-		'contacts' => $searchResults
-	) , true);
-	//$retValue = '{"results":[' . $searchResults . '],"error":""}';
+	$retValue = json_encode(array('status' => true, 'contacts' => $searchResults), true);
 	sendResultInfoAsJson($retValue);
 }
 ?>

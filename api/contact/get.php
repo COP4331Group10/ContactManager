@@ -17,8 +17,10 @@ switch($requestMethod) {
 		}
 
 		if(!empty($contactInfo)) {
+			header("HTTP/1.0 200 OK");
 			$js_encode = json_encode(array('status'=>TRUE, 'contact'=>$contactInfo), true);
 		} else {
+			header("HTTP/1.1 404 Not Found");
 			$js_encode = json_encode(array('status'=>FALSE, 'message'=>'Contact not found'), true);
 		}
 
