@@ -1,8 +1,7 @@
 <?php
 /**
- * @package Contact class
+ * @package Users class
  *
-<<<<<<< HEAD
  * @author Luis Galvis
  *   
  */
