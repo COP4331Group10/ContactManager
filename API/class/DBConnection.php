@@ -9,9 +9,9 @@
 // Database Connection
 class DBConnection {
     private $_dbHostname = "localhost";
-    private $_dbName = "minlubon";
-    private $_dbUsername = "luadmin";
-    private $_dbPassword = "luadmin";
+    private $_dbName = "11567";
+    private $_dbUsername = "11567";
+    private $_dbPassword = "password";
     private $_con;
 
     public function __construct() {

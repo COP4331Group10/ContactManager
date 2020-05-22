@@ -18,6 +18,7 @@ switch($requestMethod) {
 	    $contact->setEmail($data->email);
 	    $contact->setAddress($data->address);
 	    $contact->setAdditionalNotes($data->additionalNotes);
+		
 		$contactInfo = $contact->createContact();
  
 		if(!empty($contactInfo)) {
@@ -29,7 +30,7 @@ switch($requestMethod) {
 		echo $js_encode;	
 		break;
 	default:
-	header("HTTP/1.0 405 Method Not Allowed");
+		header("HTTP/1.0 405 Method Not Allowed");
 	break;
 }
 ?>	
