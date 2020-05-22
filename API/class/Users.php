@@ -11,14 +11,14 @@ class Users
 {
     protected $db;
     private $_username;
-    private $_usernamePW;
+    private $_password;
 
-	public function setUsername($Login) {
-        $this->_username = $Login;
+	public function setUsername($username) {
+        $this->_username = $username;
     }
 
-    public function setPassword($Password) {
-        $this->_usernamePW = $Password;
+    public function setPassword($password) {
+        $this->_password = $password;
     }
 
 	public function __construct() {
@@ -30,10 +30,11 @@ class Users
     public function createUser() {
 		try {
     		$sql = "INSERT INTO Users (Login, Password)
-					VALUES (:login, :password)";
+					VALUES (:username, :password)";
     		$data = [
-			    'login' => $this->_username,
-				'password' => $this->_usernamePW
+			    'username' => $this->_username,
+                'password' => $this->_password,  
+             
 			];
 			$stmt = $this->db->prepare($sql);
 	    	$stmt->execute($data);
@@ -43,4 +44,5 @@ class Users
     		die("There's an error in the query!");
 		}
     }
+}
 ?>
