@@ -16,7 +16,7 @@ switch($requestMethod) {
 			$contactInfo = $contact->getAllContact();
 		}
 		if(!empty($contactInfo)) {
-	      $js_encode = json_encode(array('status'=>TRUE, 'contactInfo'=>$contactInfo), true);
+	      $js_encode = json_encode($contactInfo, true);
         } else {
 			header("HTTP/1.1 404 Not Found");
         }
