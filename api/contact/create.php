@@ -11,44 +11,39 @@ $data = json_decode(file_get_contents("php://input"));
 
 switch ($requestMethod)
 {
-    case 'POST':
-        $contact->setUserID($data->userId);
-        $contact->setFirstName($data->firstName);
-        $contact->setLastName($data->lastName);
-        $contact->setPhoneNumber($data->phoneNumber);
-        $contact->setEmail($data->email);
-        $contact->setAddress($data->address);
-        $contact->setAdditionalNotes($data->additionalNotes);
+	case 'POST':
+		$contact->setUserID($data->UserID);
+		$contact->setFirstName($data->FirstName);
+		$contact->setLastName($data->LastName);
+		$contact->setPhoneNumber($data->PhoneNumber);
+		$contact->setEmail($data->Email);
+		$contact->setAddress($data->Address);
+		$contact->setAdditionalNotes($data->AdditionalNotes);
 
-        $contactInfo = $contact->createContact();
+		$contactInfo = $contact->createContact();
 
-        if (!empty($contactInfo))
-        {
-            header("HTTP/1.0 200 OK");
-        }
-        else
-        {
-            header("HTTP/1.0 409 Conflict");
-        }
-        header('Content-Type: application/json');
-        if (!empty($data))
-        {
-            $js_encode = json_encode(array(
-                'status' => true,
-                'message' => 'Contact created Successfully'
-            ) , true);
-        }
-        else
-        {
-            $js_encode = json_encode(array(
-                'status' => false,
-                'message' => 'Contact creation failed.'
-            ) , true);
-        }
-        echo $js_encode;
-    break;
-    default:
-        header("HTTP/1.0 405 Method Not Allowed");
-    break;
+		if (!empty($contactInfo))
+		{
+			header("HTTP/1.0 200 OK");
+			$js_encode = json_encode(array(
+				'status' => true,
+				'message' => 'Contact created Successfully'
+			) , true);
+		}
+		else
+		{
+			header("HTTP/1.0 409 Conflict");
+			$js_encode = json_encode(array(
+				'status' => false,
+				'message' => 'Contact creation failed'
+			) , true);
+		}
+
+		header('Content-Type: application/json');
+		echo $js_encode;
+		break;
+	default:
+		header("HTTP/1.0 405 Method Not Allowed");
+		break;
 }
 ?>

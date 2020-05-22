@@ -9,38 +9,41 @@
 include("DBConnection.php");
 class Users
 {
-    protected $db;
-    private $_username;
-    private $_usernamePW;
 
-	public function setUsername($Login) {
-        $this->_username = $Login;
-    }
+	protected $db;
+	private $_username;
+	private $_password;
 
-    public function setPassword($Password) {
-        $this->_usernamePW = $Password;
-    }
+	public function setUsername($username) {
+		$this->_username = $username;
+	}
+
+	public function setPassword($password) {
+		$this->_password = $password;
+	}
 
 	public function __construct() {
-        $this->db = new DBConnection();
-        $this->db = $this->db->returnConnection();
+		$this->db = new DBConnection();
+		$this->db = $this->db->returnConnection();
    }
 
-    // create user
-    public function createUser() {
+	// create user
+	public function createUser() {
 		try {
-    		$sql = "INSERT INTO Users (Login, Password)
-					VALUES (:login, :password)";
-    		$data = [
-			    'login' => $this->_username,
-				'password' => $this->_usernamePW
+
+			$sql = "INSERT INTO Users (Login, Password)
+					VALUES (:username, :password)";
+			$data = [
+				'username' => $this->_username,
+				'password' => $this->_password,
 			];
 			$stmt = $this->db->prepare($sql);
-	    	$stmt->execute($data);
+			$stmt->execute($data);
 			$status = $stmt->rowCount();
-            return $status;
+			return $status;
 		} catch (Exception $e) {
-    		die("There's an error in the query!");
+			die("There's an error in the query!");
 		}
-    }
+	}
+}
 ?>
