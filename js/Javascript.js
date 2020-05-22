@@ -1,10 +1,39 @@
-// This is all his original code, I haven't modified anything here.
-var urlBase = 'http://COP4331-3.com/LAMPAPI';
+var urlBase = 'http://COP4331-3.com/LAMPAPI'; //have to chang to our website url
 var extension = 'php';
 
 var userId = 0;
 var firstName = "";
 var lastName = "";
+
+function doSignup()
+{
+  	var newUser = document.getElementById("signupText").value;
+	document.getElementById("signupResult").innerHTML = "";
+	
+	var login = document.getElementById("loginName").value;
+	var password = document.getElementById("loginPassword").value;
+	var hash = md5( password );
+	var url = urlBase + '/Signup.' + extension;
+	
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		xhr.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				document.getElementById("signupResult").innerHTML = "User has been added";
+			}
+		};
+		xhr.send(jsonPayload);
+	}
+	catch(err)
+	{
+		document.getElementById("signupResult").innerHTML = err.message;
+	}
+}
 
 function doLogin()
 {
@@ -14,11 +43,11 @@ function doLogin()
 	
 	var login = document.getElementById("loginName").value;
 	var password = document.getElementById("loginPassword").value;
-//	var hash = md5( password );
+	var hash = md5( password );
 	
 	document.getElementById("loginResult").innerHTML = "";
 
-//	var jsonPayload = '{"login" : "' + login + '", "password" : "' + hash + '"}';
+	var jsonPayload = '{"login" : "' + login + '", "password" : "' + hash + '"}';
 	var jsonPayload = '{"login" : "' + login + '", "password" : "' + password + '"}';
 	var url = urlBase + '/Login.' + extension;
 
@@ -103,13 +132,25 @@ function doLogout()
 	window.location.href = "index.html";
 }
 
-function addColor()
+function addContact()
 {
-	var newColor = document.getElementById("colorText").value;
-	document.getElementById("colorAddResult").innerHTML = "";
+	var firstName = document.getElementById("firstNameText").value;
+  var lastName = document.getElementById("lastNameText").value;
+  var emailContact = document.getElementById("emailContact").value;
+  var phoneNumber = document.getElementById("phoneNumber").value;
+  var addressContact = document.getElementById("addressContact").value;
+  var notesContact = document.getElementById("notesContact").value;
+  
+  document.getElementById("firstNameAddResult").innerHTML = "";
+  document.getElementById("lastNameAddResult").innerHTML = "";
+  document.getElementById("emailContactAddResult").innerHTML = "";
+  document.getElementById("phoneNumberAddResult").innerHTML = "";
+  document.getElementById("addressContactAddResult").innerHTML = "";
+  document.getElementById("notesContactAddResult").innerHTML = "";
+  
 	
-	var jsonPayload = '{"color" : "' + newColor + '", "userId" : ' + userId + '}';
-	var url = urlBase + '/AddColor.' + extension;
+	var jsonPayload = '{"First Name" : "' + firstName + '", "Last Name" : "' +lastName+ '", "Email" : "' +emailContact+ '", "Phone Number" : "' +phoneNumber+ '", "Address" : "' +addressContact+ '", "Notes" : "' +notesContact+ '", "userId" : ' + userId + '}';
+	var url = urlBase + '/AddContact.' + extension;
 	
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
@@ -120,7 +161,7 @@ function addColor()
 		{
 			if (this.readyState == 4 && this.status == 200) 
 			{
-				document.getElementById("colorAddResult").innerHTML = "Color has been added";
+				document.getElementById("firstNameAddResult").innerHTML = "Contact has been Added";
 			}
 		};
 		xhr.send(jsonPayload);
@@ -132,15 +173,15 @@ function addColor()
 	
 }
 
-function searchColor()
+function searchContact()
 {
 	var srch = document.getElementById("searchText").value;
-	document.getElementById("colorSearchResult").innerHTML = "";
+	document.getElementById("contactSearchResult").innerHTML = "";
 	
-	var colorList = "";
+	var contactList = "";
 	
 	var jsonPayload = '{"search" : "' + srch + '","userId" : ' + userId + '}';
-	var url = urlBase + '/SearchColors.' + extension;
+	var url = urlBase + '/SearchContacts.' + extension;
 	
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
@@ -151,26 +192,26 @@ function searchColor()
 		{
 			if (this.readyState == 4 && this.status == 200) 
 			{
-				document.getElementById("colorSearchResult").innerHTML = "Color(s) has been retrieved";
+				document.getElementById("contactSearchResult").innerHTML = "Conatct(s) has been retrieved";
 				var jsonObject = JSON.parse( xhr.responseText );
 				
 				for( var i=0; i<jsonObject.results.length; i++ )
 				{
-					colorList += jsonObject.results[i];
+					conatctList += jsonObject.results[i];
 					if( i < jsonObject.results.length - 1 )
 					{
-						colorList += "<br />\r\n";
+						conatctList += "<br />\r\n";
 					}
 				}
 				
-				document.getElementsByTagName("p")[0].innerHTML = colorList;
+				document.getElementsByTagName("p")[0].innerHTML = contactList;
 			}
 		};
 		xhr.send(jsonPayload);
 	}
 	catch(err)
 	{
-		document.getElementById("colorSearchResult").innerHTML = err.message;
+		document.getElementById("conatctSearchResult").innerHTML = err.message;
 	}
 	
 }
