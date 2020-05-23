@@ -73,7 +73,7 @@ function doLogin()
 
 		saveCookie();
 	
-		window.location.href = "color.html";
+		window.location.href = "contactPage.html";
 	}
 	catch(err)
 	{
@@ -99,7 +99,7 @@ function readCookie()
 	{
 		var thisOne = splits[i].trim();
 		var tokens = thisOne.split("=");
-		if( tokens[0] == "firstName" )
+		if( tokens[0] == "firstName" ) // I think we might not need this
 		{
 			firstName = tokens[1];
 		}
@@ -132,22 +132,47 @@ function doLogout()
 	window.location.href = "index.html";
 }
 
+function returnToLogin()
+{
+	window.location.href = "index.html";
+}
+
+function moveToSignUp()
+{
+	window.location.href = "signUp.html";
+}
+
+function returnToContactPage()
+{
+	window.location.href = "contactPage.html";
+}
+
+function goToAddContact()
+{
+	window.location.href = "createNewContact.html";
+}
+
+function goToEditContact()
+{
+	window.location.href = "editContact.html";
+	// autofill the contacts information 
+}
+
 function addContact()
 {
 	var firstName = document.getElementById("firstNameText").value;
-  var lastName = document.getElementById("lastNameText").value;
-  var emailContact = document.getElementById("emailContact").value;
-  var phoneNumber = document.getElementById("phoneNumber").value;
-  var addressContact = document.getElementById("addressContact").value;
-  var notesContact = document.getElementById("notesContact").value;
-  
-  document.getElementById("firstNameAddResult").innerHTML = "";
-  document.getElementById("lastNameAddResult").innerHTML = "";
-  document.getElementById("emailContactAddResult").innerHTML = "";
-  document.getElementById("phoneNumberAddResult").innerHTML = "";
-  document.getElementById("addressContactAddResult").innerHTML = "";
-  document.getElementById("notesContactAddResult").innerHTML = "";
-  
+	var lastName = document.getElementById("lastNameText").value;
+	var emailContact = document.getElementById("emailContact").value;
+	var phoneNumber = document.getElementById("phoneNumber").value;
+	var addressContact = document.getElementById("addressContact").value;
+	var notesContact = document.getElementById("notesContact").value;
+	
+	document.getElementById("firstNameAddResult").innerHTML = "";
+	document.getElementById("lastNameAddResult").innerHTML = "";
+	document.getElementById("emailContactAddResult").innerHTML = "";
+	document.getElementById("phoneNumberAddResult").innerHTML = "";
+	document.getElementById("addressContactAddResult").innerHTML = "";
+	document.getElementById("notesContactAddResult").innerHTML = "";
 	
 	var jsonPayload = '{"First Name" : "' + firstName + '", "Last Name" : "' +lastName+ '", "Email" : "' +emailContact+ '", "Phone Number" : "' +phoneNumber+ '", "Address" : "' +addressContact+ '", "Notes" : "' +notesContact+ '", "userId" : ' + userId + '}';
 	var url = urlBase + '/AddContact.' + extension;
@@ -168,14 +193,13 @@ function addContact()
 	}
 	catch(err)
 	{
-		document.getElementById("colorAddResult").innerHTML = err.message;
-	}
-	
+		document.getElementById("contactAddResult").innerHTML = err.message;
+	}	
 }
 
 function searchContact()
 {
-	var srch = document.getElementById("searchText").value;
+	var srch = document.getElementById("searchBar").value;
 	document.getElementById("contactSearchResult").innerHTML = "";
 	
 	var contactList = "";
@@ -197,10 +221,10 @@ function searchContact()
 				
 				for( var i=0; i<jsonObject.results.length; i++ )
 				{
-					conatctList += jsonObject.results[i];
+					contactList += jsonObject.results[i];
 					if( i < jsonObject.results.length - 1 )
 					{
-						conatctList += "<br />\r\n";
+						contactList += "<br />\r\n";
 					}
 				}
 				
@@ -211,7 +235,25 @@ function searchContact()
 	}
 	catch(err)
 	{
-		document.getElementById("conatctSearchResult").innerHTML = err.message;
+		document.getElementById("contactSearchResult").innerHTML = err.message;
+	}	
+}
+
+function updateContact()
+{
+
+
+}
+
+function deleteContact()
+{
+	var r = confirm("Are you sure you want to delete this Knightact?");
+	if (r == true) 
+	{
+ 		// delete and redirect back to contactPage.html
+	}
+	else {
+  		return;
 	}
 	
 }

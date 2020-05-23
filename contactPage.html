@@ -17,12 +17,12 @@
         <div class="row">
             <div class="left">
                 <!--Perform add contact on click-->
-                <button type="button" id="addContact" class="buttons" onclick="addContact();"> Add New Knightact </button><br />
+                <button type="button" id="addContact" class="buttons" onclick="goToAddContact();"> Add New Knightact </button><br />
                 <span id="contactAddResult"></span>
             </div>
             <div class="right">
                 <!--The search bar automatically updates with each character -->
-                <input type="text" id="searchBar" placeholder="Search..." oninput="searchContacts(this.value);"/>
+                <input type="text" id="searchBar" placeholder="Search..." oninput="searchContacts();"/>
                 <span id="contactSearchResult"></span>
             </div>
         </div>
@@ -31,23 +31,10 @@
     <!-- Here is where the contacts will apprear as a button list-->
     <!-- Clicking them will take you to the edit contact page-->
     <div class="container2">
-        <button type="button" id="contact" onclick="editContact();">Knightro</button>
+        <button type="button" id="contact" onclick="goToEditContact();">Knightro</button>
         <button>Knugget</button>
-        <button>Knightro</button>
-        <button>Knugget</button>
-        <button>Knightro</button>
-        <button>Knugget</button>
-        <button>Knightro</button>
-        <button>Knugget</button>
-        <button>Knightro</button>
-        <button>Knugget</button>
-        <button>Knightro</button>
-        <button>Knugget</button>
-        <button>Knightro</button>
-        <button>Knugget</button>
-        <button>Knightro</button>
-        <button>Knugget</button>
-        <button>Knightro</button>
+        <!-- might need to change-->
+
     </div>
     
 </body>

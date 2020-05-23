@@ -5,10 +5,10 @@ body
     background-image: url('../images/ucf1.jpg'),url('../images/ucf1b.jpg'); 
 	background-repeat: no-repeat, repeat-y;
 	background-position-x: 50%;
-    background-position-y: 20%;
+    background-position-y: -50px;
     margin: 0;
     padding: 0;  
-    overflow-x: hidden;  
+    overflow-x: hidden;
 }
 
 #title 
@@ -63,7 +63,7 @@ body
     opacity: 95%;
 }
 
-#loginName,#loginPassword 
+#loginName,#loginPassword, #signupText, #signupPassword
 {
     font-size: 27px;
 }
@@ -232,7 +232,7 @@ input[type="text"], input[type="password"]
     display: none;
 }
 
-#colorAddResult /* I'm not sure what this does*/
+#contactAddResult, #contactEditResult/* for error msg*/
 {
     display: inline-block;
     font-size: 0.8em;
@@ -245,7 +245,7 @@ input[type="text"], input[type="password"]
     color: #95060a;
 }
 
-#notes /*The text box in add/edit contact*/
+#notesContact /*The text box in add/edit contact*/
 {
     font-family: 'Varela Round', 'Calibri', Arial;
     width: 85%;
@@ -332,7 +332,7 @@ label
     font-size: 0.6em;
 }
 
-#firstname, #lastname, #email, #number, #address /*contact input fields*/
+#firstNameText, #lastNameText, #emailContact, #phoneNumber, #addressContact /*contact input fields*/
 {
     border-color: black;
     padding-left: 3.5%;
