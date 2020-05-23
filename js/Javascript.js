@@ -2,15 +2,10 @@ var urlBase = 'http://COP4331-3.com/LAMPAPI'; //have to chang to our website url
 var extension = 'php';
 
 var userId = 0;
-var firstName = "";
-var lastName = "";
 
 function doSignup()
 {
-  	var newUser = document.getElementById("signupText").value;
-	document.getElementById("signupResult").innerHTML = "";
-	
-	var login = document.getElementById("loginName").value;
+	var login = document.getElementById("signupText").value;
 	var password = document.getElementById("loginPassword").value;
 	var hash = md5( password );
 	var url = urlBase + '/Signup.' + extension;
@@ -24,7 +19,7 @@ function doSignup()
 		{
 			if (this.readyState == 4 && this.status == 200) 
 			{
-				document.getElementById("signupResult").innerHTML = "User has been added";
+				document.getElementById("signupResult").innerHTML = "User has been added. Please log in now.";
 			}
 		};
 		xhr.send(jsonPayload);
@@ -38,8 +33,6 @@ function doSignup()
 function doLogin()
 {
 	userId = 0;
-	firstName = "";
-	lastName = "";
 	
 	var login = document.getElementById("loginName").value;
 	var password = document.getElementById("loginPassword").value;
@@ -48,7 +41,6 @@ function doLogin()
 	document.getElementById("loginResult").innerHTML = "";
 
 	var jsonPayload = '{"login" : "' + login + '", "password" : "' + hash + '"}';
-	var jsonPayload = '{"login" : "' + login + '", "password" : "' + password + '"}';
 	var url = urlBase + '/Login.' + extension;
 
 	var xhr = new XMLHttpRequest();
@@ -99,15 +91,7 @@ function readCookie()
 	{
 		var thisOne = splits[i].trim();
 		var tokens = thisOne.split("=");
-		if( tokens[0] == "firstName" ) // I think we might not need this
-		{
-			firstName = tokens[1];
-		}
-		else if( tokens[0] == "lastName" )
-		{
-			lastName = tokens[1];
-		}
-		else if( tokens[0] == "userId" )
+		if( tokens[0] == "userId" )
 		{
 			userId = parseInt( tokens[1].trim() );
 		}
@@ -119,16 +103,14 @@ function readCookie()
 	}
 	else
 	{
-		document.getElementById("userName").innerHTML = "Logged in as " + firstName + " " + lastName;
+		document.getElementById("userId").innerHTML = "Logged in as " + userId;
 	}
 }
 
 function doLogout()
 {
 	userId = 0;
-	firstName = "";
-	lastName = "";
-	document.cookie = "firstName= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
+	document.cookie = "userId= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
 	window.location.href = "index.html";
 }
 
@@ -155,7 +137,7 @@ function goToAddContact()
 function goToEditContact()
 {
 	window.location.href = "editContact.html";
-	// autofill the contacts information 
+	// autofill the contacts information 4-5 pull requests probably.
 }
 
 function addContact()
@@ -167,12 +149,7 @@ function addContact()
 	var addressContact = document.getElementById("addressContact").value;
 	var notesContact = document.getElementById("notesContact").value;
 	
-	document.getElementById("firstNameAddResult").innerHTML = "";
-	document.getElementById("lastNameAddResult").innerHTML = "";
-	document.getElementById("emailContactAddResult").innerHTML = "";
-	document.getElementById("phoneNumberAddResult").innerHTML = "";
-	document.getElementById("addressContactAddResult").innerHTML = "";
-	document.getElementById("notesContactAddResult").innerHTML = "";
+	document.getElementById("contactAddResult").innerHTML = "";
 	
 	var jsonPayload = '{"First Name" : "' + firstName + '", "Last Name" : "' +lastName+ '", "Email" : "' +emailContact+ '", "Phone Number" : "' +phoneNumber+ '", "Address" : "' +addressContact+ '", "Notes" : "' +notesContact+ '", "userId" : ' + userId + '}';
 	var url = urlBase + '/AddContact.' + extension;
@@ -186,7 +163,7 @@ function addContact()
 		{
 			if (this.readyState == 4 && this.status == 200) 
 			{
-				document.getElementById("firstNameAddResult").innerHTML = "Contact has been Added";
+				document.getElementById("contactAddResult").innerHTML = "Knightact has been Added";
 			}
 		};
 		xhr.send(jsonPayload);
@@ -204,7 +181,7 @@ function searchContact()
 	
 	var contactList = "";
 	
-	var jsonPayload = '{"search" : "' + srch + '","userId" : ' + userId + '}';
+	var jsonPayload = '{"search" : "' + srch + '","userId" : ' + userId + '}'; // ????
 	var url = urlBase + '/SearchContacts.' + extension;
 	
 	var xhr = new XMLHttpRequest();
@@ -216,15 +193,15 @@ function searchContact()
 		{
 			if (this.readyState == 4 && this.status == 200) 
 			{
-				document.getElementById("contactSearchResult").innerHTML = "Conatct(s) has been retrieved";
+				document.getElementById("contactSearchResult").innerHTML = "Contact(s) has been retrieved";
 				var jsonObject = JSON.parse( xhr.responseText );
 				
-				for( var i=0; i<jsonObject.results.length; i++ )
+				for( var i = 0; i < jsonObject.results.length; i++ )
 				{
-					contactList += jsonObject.results[i];
+					contactList += jsonObject.results[i]; // need to print fname lname only
 					if( i < jsonObject.results.length - 1 )
 					{
-						contactList += "<br />\r\n";
+						contactList += "<br />\r\n"; //button list here 
 					}
 				}
 				
@@ -241,8 +218,9 @@ function searchContact()
 
 function updateContact()
 {
-
-
+	//delete old 
+	//save new and add it to list 
+	window.location.href = "contactPage.html";
 }
 
 function deleteContact()
@@ -250,7 +228,8 @@ function deleteContact()
 	var r = confirm("Are you sure you want to delete this Knightact?");
 	if (r == true) 
 	{
- 		// delete and redirect back to contactPage.html
+		 // delete and redirect back to contactPage.html
+		 window.location.href = "contactPage.html";
 	}
 	else {
   		return;

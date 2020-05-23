@@ -181,11 +181,17 @@ input[type="text"], input[type="password"]
 
 #buttonDiv
 {
-    margin-top: 2%;
     margin-left: 10%;
-    width:80%;
     text-align: left;
     background-color: transparent;
+    /* TESTING HERE */
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-border-image: border-box;
+    border-image: auto;
+
+    width:80%;
+    height: 30%;
 }
 
 #searchOrAdd
@@ -206,8 +212,8 @@ input[type="text"], input[type="password"]
 .inner /* for 2 buttons on same line*/
 {
     margin-left: 12%;
-    font-family: 'Varela Round', 'Calibri', Arial;
     font-size: 150%;
+    font-family: 'Varela Round', 'Calibri', Arial;
     display: inline-block;
     width: 20em;
     margin-right: -30%;
@@ -257,7 +263,6 @@ input[type="text"], input[type="password"]
     margin-left: 12%;
     resize: none;
     font-size: 0.5em;
-    max-height: 400%;
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-border-image: border-box;
