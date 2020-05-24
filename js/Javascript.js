@@ -236,3 +236,137 @@ function deleteContact()
 	}
 	
 }
+
+function editPage()
+{
+	var firstName = document.getElementById("firstName").value;
+	var lastName = document.getElementById("lastName").value;
+	var emailContact = document.getElementById("emailContact").value;
+	var phoneNumber = document.getElementById("phoneNumber").value;
+	var addressContact = document.getElementById("addressContact").value;
+	var notesContact = document.getElementById("notesContact").value;
+	
+	//This should fill in the text boxes
+		firstName = document.getElementById("firstName").innerHTML;
+		lastName = document.getElementById("lastName").innerHTML;
+		emailContact = document.getElementById("emailContact").innerHTML;
+		phoneNumber = document.getElementById("phoneNumber").innerHTML;
+		addressContact = document.getElementById("addressContact").innerHTML;
+		notesContact = document.getElementById("notesContact").innerHTML;
+	
+
+	
+	//This will allow the change
+	var jsonPayload = '{"First Name" : "' + firstName + '","Last Name" : "' + lastName + '","Email" : "' + emailContact + '","PhoneNumber" : "' + phoneNumber + '","Address" : "' + addressContact + '","Notes" : "' + notesContact + '","id" : "' + id + '","Email" : "' + email + '"}';
+	var url = urlBase + '/EditContact.' + extension;
+
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		xhr.onreadystatechange = function()
+		{
+			if (this.readyState == 4 && this.status == 200)
+			{
+				document.getElementById("editResult").innerHTML = "Contact has been Updated";
+				var jsonObject = JSON.parse( xhr.responseText );
+
+				if(jsonObject.results != undefined)
+				for( var i=0; i<jsonObject.results.length; i++ )
+				{
+					
+					var firstName = "";
+					var lastName = "";
+					var emailContact = "";
+					var phoneNumber = "";
+					var addressContact = "";
+					var notesContact = "";
+					
+					document.getElementById("firstName").innerHTML = firstName;
+					document.getElementById("lastName").innerHTML = lastName;
+					document.getElementById("emailContact").innerHTML = emailContact;
+					document.getElementById("phoneNumber").innerHTML = phoneNumber;
+					document.getElementById("addressContact").innerHTML = addressContact;
+					document.getElementById("notesContact").innerHTML = notesContact;
+				}
+			}
+		};
+		xhr.send(jsonPayload);
+	}
+	catch(err)
+	{
+		document.getElementById("editResult").innerHTML = err.message;
+	}
+
+
+}
+
+
+function editButton()
+{
+	var jsonPayload = '{"id" : "' + id + '"}';
+	var url = urlBase + '/EditSearch.' + extension;
+
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		xhr.onreadystatechange = function()
+		{
+			if (this.readyState == 4 && this.status == 200)
+			{
+				var jsonObject = JSON.parse( xhr.responseText );
+
+				if(jsonObject.results != undefined)
+				for( var i=0; i<jsonObject.results.length; i++ )
+				{
+					
+					var firstName = "";
+					var lastName = "";
+					var emailContact = "";
+					var phoneNumber = "";
+					var addressContact = "";
+					var notesContact = "";
+					
+					document.getElementById("firstName").innerHTML = firstName;
+					document.getElementById("lastName").innerHTML = lastName;
+					document.getElementById("emailContact").innerHTML = emailContact;
+					document.getElementById("phoneNumber").innerHTML = phoneNumber;
+					document.getElementById("addressContact").innerHTML = addressContact;
+					document.getElementById("notesContact").innerHTML = notesContact;
+				}
+			}
+		};
+		xhr.send(jsonPayload);
+	}
+	catch(err)
+	{
+		document.getElementById("editResult").innerHTML = err.message;
+	}
+}
+
+function deleteButton()
+{
+	
+	var prompt = confirm("Are you sure you want to delete " + text);
+	if(prompt)
+	{
+		var jsonPayload = '{"id" : "' + id + '"}';
+		var url = urlBase + '/DeleteContact.' + extension;
+
+		var xhr = new XMLHttpRequest();
+		xhr.open("POST", url, true);
+		xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+		try
+		{
+			xhr.send(jsonPayload);
+			location.reload();
+		}
+		catch(err)
+		{
+			document.getElementById("contactSearchResult").innerHTML = err.message;
+		}
+	}
+}
