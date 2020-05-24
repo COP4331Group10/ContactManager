@@ -1,4 +1,4 @@
-var urlBase = 'http://COP4331-3.com/LAMPAPI'; //have to chang to our website url
+var urlBase = 'http://knightacts.ueuo.com/';
 var extension = 'php';
 
 var userId = 0;
