@@ -251,7 +251,7 @@ input[type="text"], input[type="password"]
     color: #95060a;
 }
 
-#notesContact /*The text box in add/edit contact*/
+#notesContact, #notesContact2 /*The text box in add/edit contact*/
 {
     font-family: 'Varela Round', 'Calibri', Arial;
     width: 85%;
@@ -337,7 +337,8 @@ label
     font-size: 0.6em;
 }
 
-#firstNameText, #lastNameText, #emailContact, #phoneNumber, #addressContact /*contact input fields*/
+#firstNameText, #lastNameText, #emailContact, #phoneNumber, #addressContact,
+#firstNameText2, #lastNameText2, #emailContact2, #phoneNumber2, #addressContact2 /*contact input fields*/
 {
     border-color: black;
     padding-left: 3.5%;
