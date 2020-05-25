@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Knightacts- My Contacts</title>
-    <script type="text/javascript" src="js/code.js"></script> <!--back end-->
+    <script type="text/javascript" src="js/Javascript.js"></script> <!--back end-->
     <link href="css/styles.css" rel="stylesheet" type="text/css">	
     <link href="https://fonts.googleapis.com/css?family=Varela+Round|Calibri" rel="stylesheet">
     
@@ -12,22 +12,29 @@
 
     <button type="button" id="logoutButton" class="buttons" onclick="doLogout();"> </button>
 
+    <!-- Black box with search and add -->
     <div id="searchOrAdd">
-        <!--Perform add contact on click-->
-        <button type="button" id="addContact" class="buttons" onclick="addContact();"> Add New Knightact </button><br />
-        <span id="contactAddResult"></span>
-
-        <!--The search bar automatically updates with each character -->
-       <input type="text" id="searchBar" placeholder="Search..." oninput="searchContacts(this.value);"/>
-        <span id="contactSearchResult"></span>
+        <div class="row">
+            <div class="left">
+                <!--Perform add contact on click-->
+                <button type="button" id="addContact" class="buttons" onclick="goToAddContact();"> Add New Knightact </button><br />
+                <span id="contactAddResult"></span>
+            </div>
+            <div class="right">
+                <!--The search bar automatically updates with each character -->
+                <input type="text" id="searchBar" placeholder="Search..." oninput="searchContacts();"/>
+                <span id="contactSearchResult"></span>
+            </div>
+        </div>
     </div>
 
-    <div id="accessUIDiv">
-        <br />
-        <p id="colorList">
-        </p><br /><br />
-        <!--Here-->
-        
+    <!-- Here is where the contacts will apprear as a button list-->
+    <!-- Clicking them will take you to the edit contact page-->
+    <div class="container2">
+        <button type="button" id="contact" onclick="editButton();">Knightro</button>
+        <button>Knugget</button>
+        <!-- might need to change-->
+
     </div>
     
 </body>

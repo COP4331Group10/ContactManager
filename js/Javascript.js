@@ -1,0 +1,347 @@
+var urlBase = 'http://knightacts.ueuo.com';
+var extension = 'php';
+
+var userId = 0;
+
+function doSignup()
+{
+	uderId = 0;
+	var userName = document.getElementById("newUserName").value;
+	var password = document.getElementById("newPassword").value;
+	var hash = md5( password );
+
+	document.getElementById("signUpResult").innerHTML = "";
+	var jsonPayload = '{"Username" : "' + userName + '", "password" : "' + hash + '"}';
+	var url = urlBase + '/api/user/create.' + extension;
+	
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", url, false);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		xhr.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				document.getElementById("signUpResult").innerHTML = "User has been added";
+			}
+		};
+		xhr.send(jsonPayload);
+		saveCookie();
+		window.location.href = "contactPage.html";
+	}
+	catch(err)
+	{
+		document.getElementById("signUpResult").innerHTML = err.message;
+	}
+}
+
+function doLogin()
+{
+	userId = 0;
+	
+	var login = document.getElementById("loginName").value;
+	var password = document.getElementById("loginPassword").value;
+	var hash = md5( password );
+	
+	document.getElementById("loginResult").innerHTML = "";
+
+	var jsonPayload = '{"login" : "' + login + '", "password" : "' + hash + '"}';
+	var url = urlBase + '/api/user/login.' + extension;
+
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", url, false);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		xhr.send(jsonPayload);
+		
+		var jsonObject = JSON.parse( xhr.responseText );
+		
+		userId = jsonObject.id;
+		
+		if( userId < 1 )
+		{
+			document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
+			return;
+		}
+
+		saveCookie();
+		window.location.href = "contactPage.html";
+	}
+	catch(err)
+	{
+		document.getElementById("loginResult").innerHTML = err.message;
+	}
+
+}
+
+function saveCookie()
+{
+	var minutes = 20;
+	var date = new Date();
+	date.setTime(date.getTime()+(minutes*60*1000));	
+	document.cookie = "firstName=" + firstName + ",lastName=" + lastName + ",userId=" + userId + ";expires=" + date.toGMTString();
+}
+
+function readCookie()
+{
+	userId = -1;
+	var data = document.cookie;
+	var splits = data.split(",");
+	for(var i = 0; i < splits.length; i++) 
+	{
+		var thisOne = splits[i].trim();
+		var tokens = thisOne.split("=");
+		if( tokens[0] == "userId" )
+		{
+			userId = parseInt( tokens[1].trim() );
+		}
+	}
+	
+	if( userId < 0 )
+	{
+		window.location.href = "index.html";
+	}
+	else
+	{
+		document.getElementById("userId").innerHTML = "Logged in as " + userId;
+	}
+}
+
+function doLogout()
+{
+	userId = 0;
+	document.cookie = "userId= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
+	window.location.href = "index.html";
+}
+
+function returnToLogin()
+{
+	window.location.href = "index.html";
+}
+
+function moveToSignUp()
+{
+	window.location.href = "signUp.html";
+}
+
+function returnToContactPage()
+{
+	window.location.href = "contactPage.html";
+}
+
+function goToAddContact()
+{
+	window.location.href = "createNewContact.html";
+}
+
+function addContact()
+{
+	var firstName = document.getElementById("firstNameText").value;
+	var lastName = document.getElementById("lastNameText").value;
+	var emailContact = document.getElementById("emailContact").value;
+	var phoneNumber = document.getElementById("phoneNumber").value;
+	var addressContact = document.getElementById("addressContact").value;
+	var notesContact = document.getElementById("notesContact").value;
+	
+	document.getElementById("contactAddResult").innerHTML = "";
+	
+	var jsonPayload = '{"First Name" : "' + firstName + '", "Last Name" : "' +lastName+ '", "Email" : "' +emailContact+ '", "Phone Number" : "' +phoneNumber+ '", "Address" : "' +addressContact+ '", "Notes" : "' +notesContact+ '", "userId" : ' + userId + '}';
+	var url = urlBase + 'api/contact/create.' + extension;
+	
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		xhr.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				document.getElementById("contactAddResult").innerHTML = "Knightact has been Added";
+			}
+		};
+		xhr.send(jsonPayload);
+	}
+	catch(err)
+	{
+		document.getElementById("contactAddResult").innerHTML = err.message;
+	}	
+}
+
+function searchContact()
+{
+	var srch = document.getElementById("searchBar").value;
+	document.getElementById("contactSearchResult").innerHTML = "";
+	
+	var contactList = "";
+	
+	var jsonPayload = '{"search" : "' + srch + '","userId" : ' + userId + '}'; // ????
+	var url = urlBase + '/api/contact/search.' + extension;
+	
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		xhr.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				document.getElementById("contactSearchResult").innerHTML = "Knightacts have been retrieved";
+				var jsonObject = JSON.parse( xhr.responseText );
+				
+				for( var i = 0; i < jsonObject.results.length; i++ )
+				{
+					contactList += jsonObject.results[i]; // need to print fname lname only
+					if( i < jsonObject.results.length - 1 )
+					{
+						contactList += "<br />\r\n"; //button list here 
+					}
+				}
+				
+				document.getElementsByTagName("p")[0].innerHTML = contactList;
+			}
+		};
+		xhr.send(jsonPayload);
+	}
+	catch(err)
+	{
+		document.getElementById("contactSearchResult").innerHTML = err.message;
+	}	
+}
+
+function editPage()
+{
+	var firstName = document.getElementById("firstName").value;
+	var lastName = document.getElementById("lastName").value;
+	var emailContact = document.getElementById("emailContact").value;
+	var phoneNumber = document.getElementById("phoneNumber").value;
+	var addressContact = document.getElementById("addressContact").value;
+	var notesContact = document.getElementById("notesContact").value;
+	
+	//This should fill in the text boxes
+	firstName = document.getElementById("firstName").innerHTML;
+	lastName = document.getElementById("lastName").innerHTML;
+	emailContact = document.getElementById("emailContact").innerHTML;
+	phoneNumber = document.getElementById("phoneNumber").innerHTML;
+	addressContact = document.getElementById("addressContact").innerHTML;
+	notesContact = document.getElementById("notesContact").innerHTML;
+		
+	//This will allow the change
+	var jsonPayload = '{"First Name" : "' + firstName + '","Last Name" : "' + lastName + '","Email" : "' + emailContact + '","PhoneNumber" : "' + phoneNumber + '","Address" : "' + addressContact + '","Notes" : "' + notesContact + '","id" : "' + id + '","Email" : "' + email + '"}';
+	var url = urlBase + '/api/contact/update.' + extension;
+
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		xhr.onreadystatechange = function()
+		{
+			if (this.readyState == 4 && this.status == 200)
+			{
+				document.getElementById("editResult").innerHTML = "Knightact has been Updated";
+				var jsonObject = JSON.parse( xhr.responseText );
+
+				if(jsonObject.results != undefined)
+				for( var i=0; i<jsonObject.results.length; i++ )
+				{
+					
+					var firstName = "";
+					var lastName = "";
+					var emailContact = "";
+					var phoneNumber = "";
+					var addressContact = "";
+					var notesContact = "";
+					
+					document.getElementById("firstName").innerHTML = firstName;
+					document.getElementById("lastName").innerHTML = lastName;
+					document.getElementById("emailContact").innerHTML = emailContact;
+					document.getElementById("phoneNumber").innerHTML = phoneNumber;
+					document.getElementById("addressContact").innerHTML = addressContact;
+					document.getElementById("notesContact").innerHTML = notesContact;
+				}
+			}
+		};
+		xhr.send(jsonPayload);
+	}
+	catch(err)
+	{
+		document.getElementById("editResult").innerHTML = err.message;
+	}
+}
+
+
+function editButton()
+{
+	window.location.href = "editContact.html"; //redirects to edit page
+
+	var jsonPayload = '{"id" : "' + id + '"}';
+	var url = urlBase + '/api/contact/get.' + extension;
+
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		xhr.onreadystatechange = function()
+		{
+			if (this.readyState == 4 && this.status == 200)
+			{
+				var jsonObject = JSON.parse( xhr.responseText );
+
+				if(jsonObject.results != undefined)
+				for( var i=0; i<jsonObject.results.length; i++ )
+				{
+					
+					var firstName = "";
+					var lastName = "";
+					var emailContact = "";
+					var phoneNumber = "";
+					var addressContact = "";
+					var notesContact = "";
+					
+					document.getElementById("firstName").innerHTML = firstName;
+					document.getElementById("lastName").innerHTML = lastName;
+					document.getElementById("emailContact").innerHTML = emailContact;
+					document.getElementById("phoneNumber").innerHTML = phoneNumber;
+					document.getElementById("addressContact").innerHTML = addressContact;
+					document.getElementById("notesContact").innerHTML = notesContact;
+				}
+			}
+		};
+		xhr.send(jsonPayload);
+	}
+	catch(err)
+	{
+		document.getElementById("editResult").innerHTML = err.message;
+	}
+}
+
+function deleteContact()
+{
+	
+	var prompt = confirm("Are you sure you want to delete this Knightact?");
+	if(prompt)
+	{
+		var jsonPayload = '{"userId" : "' + id + '"}';
+		var url = urlBase + '/api/contact/delete.' + extension;
+
+		var xhr = new XMLHttpRequest();
+		xhr.open("POST", url, true);
+		xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+		try
+		{
+			xhr.send(jsonPayload);
+			//location.reload();
+			window.location.href = "contactPage.html";
+
+		}
+		catch(err)
+		{
+			document.getElementById("contactSearchResult").innerHTML = err.message;
+		}
+	}
+}
