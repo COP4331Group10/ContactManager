@@ -410,3 +410,42 @@ function deleteContact()
 		}
 	}
 }
+
+function getAllContacts()
+{
+	var userId = 1;
+
+	var url = urlBase + '/api/contact/getUserContacts/' + '1';
+
+	var xhr = new XMLHttpRequest();
+	xhr.open("GET", url, false);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		xhr.onreadystatechange = function()
+		{
+		    var div = document.getElementById("myUL");
+		    var jsonObject = JSON.parse( xhr.responseText );
+
+		    for (i = 0; i < jsonObject.contacts.length; i++)
+		    {
+		        var content = document.createElement("a");
+		        content.id = "contact";
+		        content.setAttribute("onclick", "goToEditPage();");
+
+		        content.innerHTML = jsonObject.contacts[i].FirstName;
+
+		        var contact = document.createElement("li");
+                contact.appendChild(content);
+
+                div.appendChild(contact);
+		    }
+		}
+		xhr.send(null); // sending null since get request
+	}
+	catch(err)
+	{
+		//document.getElementById("editResult").innerHTML = err.message;
+		alert(err.message);
+	}
+}
