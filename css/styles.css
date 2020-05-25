@@ -5,7 +5,7 @@ body
     background-image: url('../images/ucf1.jpg'),url('../images/ucf1b.jpg'); 
 	background-repeat: no-repeat, repeat-y;
 	background-position-x: 50%;
-    background-position-y: -50px;
+    background-position-y: -100px;
     margin: 0;
     padding: 0;  
     overflow-x: hidden;
@@ -136,16 +136,16 @@ input[type="text"], input[type="password"]
     color: black;
 }
 
-#loginResult, #signUpResult
+#loginResult, #signUpResult, #contactAddResult, #contactSearchResult, #contactEditResult
 {
     display: inline-block;
     background-color:goldenrod;
     font-size: 0.8em;
-    width: 90%;
+    width: 70%;
     text-align: center;
     margin-top: 1%;
-    margin-left: 5%;
     margin-bottom: 2%;
+    margin-left: 15%;
     font-family: 'Varela Round', 'Calibri', Arial;
     color: #95060a;
 }
@@ -299,6 +299,7 @@ input[type="text"], input[type="password"]
     background-color: goldenrod;
     box-shadow: 5px 10px 8px black;
     align-items: center;
+    
 }
 
 .row:after /* 2 column formatting for contacts*/
@@ -384,9 +385,10 @@ label
     outline: 0;
 }
 
-.container2 button:not(:last-child) 
+/* Prevent double borders */
+/*.container2 button:not(:last-child) 
 {
-    border-bottom: none; /* Prevent double borders */
+    border-bottom: none; 
 }
 
 .container2 button:hover 
@@ -397,3 +399,37 @@ label
     color: black;
     opacity: 95%;
 }
+*/
+
+#myUL {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  #myUL li a {
+    margin: auto;
+    font-family: 'Varela Round', 'Calibri', Arial;
+    font-size: 0.9em;
+    border-radius: 0.5em;
+    background-color: black;
+    border: 1px solid white;
+    color: white;
+    padding: 10px 24px; /* Some padding */
+    cursor: pointer;
+    width: 50%;
+    display: block;
+    outline: 0;
+    text-align: center;
+    margin-top: -1px; /* Prevent double borders */
+    text-decoration: none;
+    display: block
+  }
+  
+  #myUL li a:hover:not(.header) {
+    color: #FFFFFF;
+    border-color: black;
+    background-color: gold;
+    color: black;
+    opacity: 95%;
+  }
