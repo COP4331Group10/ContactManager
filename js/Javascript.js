@@ -3,15 +3,16 @@ var extension = 'php';
 
 var userId = 0;
 
+// Creates an account for the new user.
 function doSignup()
 {
-	uderId = 0;
+	userId = 0;
 	var userName = document.getElementById("newUserName").value;
 	var password = document.getElementById("newPassword").value;
 	var hash = md5( password );
 
 	document.getElementById("signUpResult").innerHTML = "";
-	var jsonPayload = '{"Username" : "' + userName + '", "password" : "' + hash + '"}';
+	var jsonPayload = '{"username" : "' + userName + '", "password" : "' + hash + '"}';
 	var url = urlBase + '/api/user/create.' + extension;
 	
 	var xhr = new XMLHttpRequest();
@@ -23,7 +24,7 @@ function doSignup()
 		{
 			if (this.readyState == 4 && this.status == 200) 
 			{
-				document.getElementById("signUpResult").innerHTML = "User has been added";
+				document.getElementById("signUpResult").innerHTML = "User has been added"; // Remove msg when working
 			}
 		};
 		xhr.send(jsonPayload);
@@ -36,6 +37,7 @@ function doSignup()
 	}
 }
 
+// Logs existing user into account.
 function doLogin()
 {
 	userId = 0;
@@ -48,16 +50,14 @@ function doLogin()
 
 	var jsonPayload = '{"login" : "' + login + '", "password" : "' + hash + '"}';
 	var url = urlBase + '/api/user/login.' + extension;
-
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, false);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
 	try
 	{
 		xhr.send(jsonPayload);
-		
 		var jsonObject = JSON.parse( xhr.responseText );
-		
 		userId = jsonObject.id;
 		
 		if( userId < 1 )
@@ -81,7 +81,7 @@ function saveCookie()
 	var minutes = 20;
 	var date = new Date();
 	date.setTime(date.getTime()+(minutes*60*1000));	
-	document.cookie = "firstName=" + firstName + ",lastName=" + lastName + ",userId=" + userId + ";expires=" + date.toGMTString();
+	document.cookie = "userId=" + userId + ";expires=" + date.toGMTString();
 }
 
 function readCookie()
@@ -136,6 +136,7 @@ function goToAddContact()
 	window.location.href = "createNewContact.html";
 }
 
+// Creates a new contact
 function addContact()
 {
 	var firstName = document.getElementById("firstNameText").value;
@@ -147,8 +148,8 @@ function addContact()
 	
 	document.getElementById("contactAddResult").innerHTML = "";
 	
-	var jsonPayload = '{"First Name" : "' + firstName + '", "Last Name" : "' +lastName+ '", "Email" : "' +emailContact+ '", "Phone Number" : "' +phoneNumber+ '", "Address" : "' +addressContact+ '", "Notes" : "' +notesContact+ '", "userId" : ' + userId + '}';
-	var url = urlBase + 'api/contact/create.' + extension;
+	var jsonPayload = '{"FirstName" : "' + firstName + '", "LastName" : "' +lastName+ '", "Email" : "' +emailContact+ '", "PhoneNumber" : "' +phoneNumber+ '", "Address" : "' +addressContact+ '", "AdditionalNotes" : "' +notesContact+ '", "UserID" : ' + userId + '}';
+	var url = urlBase + '/api/contact/create.' + extension;
 	
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
@@ -170,14 +171,13 @@ function addContact()
 	}	
 }
 
-function searchContact()
+function searchContacts()
 {
 	var srch = document.getElementById("searchBar").value;
-	document.getElementById("contactSearchResult").innerHTML = "";
 	
 	var contactList = "";
 	
-	var jsonPayload = '{"search" : "' + srch + '","userId" : ' + userId + '}'; // ????
+	var jsonPayload = '{"userId" : "' + userId + '","search" : ' + srch + '}';
 	var url = urlBase + '/api/contact/search.' + extension;
 	
 	var xhr = new XMLHttpRequest();
@@ -212,6 +212,37 @@ function searchContact()
 	}	
 }
 
+// Need to connect this to API. 
+// right now, it's going off of tag name, but needs to go off of fname, lname of contact object stored- not done yet either
+function searchContact2()
+{
+
+	var srch = document.getElementById("searchBar").value;
+	var contactList = "";
+	var jsonPayload = '{"userId" : "' + userId + '","search" : ' + srch + '}';
+	var url = urlBase + '/api/contact/search.' + extension;
+	var input, filter, ul, li, a, i, txtValue;
+	
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+		
+	// This block of code does a "live"
+    input = document.getElementById("searchBar");
+    filter = input.value.toUpperCase();
+    ul = document.getElementById("myUL");
+    li = ul.getElementsByTagName("li");
+    for (i = 0; i < li.length; i++) {
+        a = li[i].getElementsByTagName("a")[0];
+        txtValue = a.textContent || a.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            li[i].style.display = "";
+        } else {
+			li[i].style.display = "none";           
+	 	}
+    }
+}
+
 function editPage()
 {
 	var firstName = document.getElementById("firstName").value;
@@ -230,7 +261,7 @@ function editPage()
 	notesContact = document.getElementById("notesContact").innerHTML;
 		
 	//This will allow the change
-	var jsonPayload = '{"First Name" : "' + firstName + '","Last Name" : "' + lastName + '","Email" : "' + emailContact + '","PhoneNumber" : "' + phoneNumber + '","Address" : "' + addressContact + '","Notes" : "' + notesContact + '","id" : "' + id + '","Email" : "' + email + '"}';
+	var jsonPayload = '{FirstName" : "' + firstName + '", "LastName" : "' +lastName+ '", "Email" : "' +emailContact+ '", "PhoneNumber" : "' +phoneNumber+ '", "Address" : "' +addressContact+ '", "AdditionalNotes" : "' +notesContact+ '", "UserID" : ' + userId + '}';
 	var url = urlBase + '/api/contact/update.' + extension;
 
 	var xhr = new XMLHttpRequest();
@@ -274,12 +305,12 @@ function editPage()
 }
 
 
-function editButton()
+function goToEditPage()
 {
-	window.location.href = "editContact.html"; //redirects to edit page
+	window.location.href = "editContact.html"; // ??
 
 	var jsonPayload = '{"id" : "' + id + '"}';
-	var url = urlBase + '/api/contact/get.' + extension;
+	var url = urlBase + '/api/contact/api/contact/update.' + extension;
 
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
@@ -322,11 +353,9 @@ function editButton()
 
 function deleteContact()
 {
-	
 	var prompt = confirm("Are you sure you want to delete this Knightact?");
 	if(prompt)
 	{
-		var jsonPayload = '{"userId" : "' + id + '"}';
 		var url = urlBase + '/api/contact/delete.' + extension;
 
 		var xhr = new XMLHttpRequest();
@@ -335,13 +364,11 @@ function deleteContact()
 		try
 		{
 			xhr.send(jsonPayload);
-			//location.reload();
 			window.location.href = "contactPage.html";
-
 		}
 		catch(err)
 		{
-			document.getElementById("contactSearchResult").innerHTML = err.message;
+			document.getElementById("contactEditResult").innerHTML = err.message;
 		}
 	}
 }
