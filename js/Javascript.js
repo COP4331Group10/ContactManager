@@ -22,6 +22,11 @@ function doSignup()
 	{
 		xhr.onreadystatechange = function() 
 		{
+			if (this.readyState.userName == "" || this.readyState.password == "")
+			{
+				document.getElementById("signUpResult").innerHTML = "Please enter a username and password.";
+				return;
+			}
 			if (this.readyState == 4 && this.status == 200) 
 			{
 				document.getElementById("signUpResult").innerHTML = "User has been added"; // Remove msg when working
@@ -158,6 +163,11 @@ function addContact()
 	{
 		xhr.onreadystatechange = function() 
 		{
+			if (this.readyState.firstName == "" || this.readyState.lastName == "")
+			{
+				document.getElementById("contactAddResult").innerHTML = "Please enter the required fields.";
+				return;
+			}
 			if (this.readyState == 4 && this.status == 200) 
 			{
 				document.getElementById("contactAddResult").innerHTML = "Knightact has been Added";
@@ -197,7 +207,7 @@ function searchContacts()
 					contactList += jsonObject.results[i]; // need to print fname lname only
 					if( i < jsonObject.results.length - 1 )
 					{
-						contactList += "<br />\r\n"; //button list here 
+						contactList += "<br />\r\n"; // list here 
 					}
 				}
 				
@@ -212,11 +222,11 @@ function searchContacts()
 	}	
 }
 
-// Need to connect this to API. 
-// right now, it's going off of tag name, but needs to go off of fname, lname of contact object stored- not done yet either
+// SearchContacts2() is what is currently being called in contactPage.html. It does a "live" search 
+// based on tag name. Needs to instead go off of firstName, lastName of the contact objects - which I don't think
+// are being stored. Also needs to be connected to the API.
 function searchContact2()
 {
-
 	var srch = document.getElementById("searchBar").value;
 	var contactList = "";
 	var jsonPayload = '{"userId" : "' + userId + '","search" : ' + srch + '}';
@@ -271,6 +281,11 @@ function editPage()
 	{
 		xhr.onreadystatechange = function()
 		{
+			if (this.readyState.firstName == "" || this.readyState.lastName == "")
+			{
+				document.getElementById("contactAddResult").innerHTML = "Please enter the required fields.";
+				return;
+			}
 			if (this.readyState == 4 && this.status == 200)
 			{
 				document.getElementById("editResult").innerHTML = "Knightact has been Updated";
@@ -307,7 +322,7 @@ function editPage()
 
 function goToEditPage()
 {
-	window.location.href = "editContact.html"; // ??
+	window.location.href = "editContact.html"; 
 
 	var jsonPayload = '{"id" : "' + id + '"}';
 	var url = urlBase + '/api/contact/api/contact/update.' + extension;
