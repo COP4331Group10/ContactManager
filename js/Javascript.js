@@ -4,30 +4,32 @@ var extension = 'php';
 var userId = 0;
 
 // Creates an account for the new user.
-function doSignup()
+function doSignUp()
 {
 	userId = 0;
 	var userName = document.getElementById("newUserName").value;
 	var password = document.getElementById("newPassword").value;
+
+	if (!userName || userName.length == 0 || !password || password.length == 0)
+	{
+		document.getElementById("signUpResult").innerHTML = "Please enter a username and password.";
+		return;
+	}
+
 	var hash = md5( password );
 
 	document.getElementById("signUpResult").innerHTML = "";
 	var jsonPayload = '{"username" : "' + userName + '", "password" : "' + hash + '"}';
 	var url = urlBase + '/api/user/create.' + extension;
-	
+
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, false);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 	try
 	{
-		xhr.onreadystatechange = function() 
+		xhr.onreadystatechange = function()
 		{
-			if (this.readyState.userName == "" || this.readyState.password == "")
-			{
-				document.getElementById("signUpResult").innerHTML = "Please enter a username and password.";
-				return;
-			}
-			if (this.readyState == 4 && this.status == 200) 
+			if (this.readyState == 4 && this.status == 200)
 			{
 				document.getElementById("signUpResult").innerHTML = "User has been added"; // Remove msg when working
 			}
@@ -46,11 +48,11 @@ function doSignup()
 function doLogin()
 {
 	userId = 0;
-	
+
 	var login = document.getElementById("loginName").value;
 	var password = document.getElementById("loginPassword").value;
 	var hash = md5( password );
-	
+
 	document.getElementById("loginResult").innerHTML = "";
 
 	var jsonPayload = '{"login" : "' + login + '", "password" : "' + hash + '"}';
@@ -64,7 +66,7 @@ function doLogin()
 		xhr.send(jsonPayload);
 		var jsonObject = JSON.parse( xhr.responseText );
 		userId = jsonObject.id;
-		
+
 		if( userId < 1 )
 		{
 			document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
@@ -85,7 +87,7 @@ function saveCookie()
 {
 	var minutes = 20;
 	var date = new Date();
-	date.setTime(date.getTime()+(minutes*60*1000));	
+	date.setTime(date.getTime()+(minutes*60*1000));
 	document.cookie = "userId=" + userId + ";expires=" + date.toGMTString();
 }
 
@@ -94,7 +96,7 @@ function readCookie()
 	userId = -1;
 	var data = document.cookie;
 	var splits = data.split(",");
-	for(var i = 0; i < splits.length; i++) 
+	for(var i = 0; i < splits.length; i++)
 	{
 		var thisOne = splits[i].trim();
 		var tokens = thisOne.split("=");
@@ -103,7 +105,7 @@ function readCookie()
 			userId = parseInt( tokens[1].trim() );
 		}
 	}
-	
+
 	if( userId < 0 )
 	{
 		window.location.href = "index.html";
@@ -150,25 +152,25 @@ function addContact()
 	var phoneNumber = document.getElementById("phoneNumber").value;
 	var addressContact = document.getElementById("addressContact").value;
 	var notesContact = document.getElementById("notesContact").value;
-	
+
 	document.getElementById("contactAddResult").innerHTML = "";
-	
+
 	var jsonPayload = '{"FirstName" : "' + firstName + '", "LastName" : "' +lastName+ '", "Email" : "' +emailContact+ '", "PhoneNumber" : "' +phoneNumber+ '", "Address" : "' +addressContact+ '", "AdditionalNotes" : "' +notesContact+ '", "UserID" : ' + userId + '}';
 	var url = urlBase + '/api/contact/create.' + extension;
-	
+
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 	try
 	{
-		xhr.onreadystatechange = function() 
+		xhr.onreadystatechange = function()
 		{
 			if (this.readyState.firstName == "" || this.readyState.lastName == "")
 			{
 				document.getElementById("contactAddResult").innerHTML = "Please enter the required fields.";
 				return;
 			}
-			if (this.readyState == 4 && this.status == 200) 
+			if (this.readyState == 4 && this.status == 200)
 			{
 				document.getElementById("contactAddResult").innerHTML = "Knightact has been Added";
 			}
@@ -178,39 +180,39 @@ function addContact()
 	catch(err)
 	{
 		document.getElementById("contactAddResult").innerHTML = err.message;
-	}	
+	}
 }
 
 function searchContacts()
 {
 	var srch = document.getElementById("searchBar").value;
-	
+
 	var contactList = "";
-	
+
 	var jsonPayload = '{"userId" : "' + userId + '","search" : ' + srch + '}';
 	var url = urlBase + '/api/contact/search.' + extension;
-	
+
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 	try
 	{
-		xhr.onreadystatechange = function() 
+		xhr.onreadystatechange = function()
 		{
-			if (this.readyState == 4 && this.status == 200) 
+			if (this.readyState == 4 && this.status == 200)
 			{
 				document.getElementById("contactSearchResult").innerHTML = "Knightacts have been retrieved";
 				var jsonObject = JSON.parse( xhr.responseText );
-				
+
 				for( var i = 0; i < jsonObject.results.length; i++ )
 				{
 					contactList += jsonObject.results[i]; // need to print fname lname only
 					if( i < jsonObject.results.length - 1 )
 					{
-						contactList += "<br />\r\n"; // list here 
+						contactList += "<br />\r\n"; // list here
 					}
 				}
-				
+
 				document.getElementsByTagName("p")[0].innerHTML = contactList;
 			}
 		};
@@ -219,10 +221,10 @@ function searchContacts()
 	catch(err)
 	{
 		document.getElementById("contactSearchResult").innerHTML = err.message;
-	}	
+	}
 }
 
-// SearchContacts2() is what is currently being called in contactPage.html. It does a "live" search 
+// SearchContacts2() is what is currently being called in contactPage.html. It does a "live" search
 // based on tag name. Needs to instead go off of firstName, lastName of the contact objects - which I don't think
 // are being stored. Also needs to be connected to the API.
 function searchContact2()
@@ -232,11 +234,11 @@ function searchContact2()
 	var jsonPayload = '{"userId" : "' + userId + '","search" : ' + srch + '}';
 	var url = urlBase + '/api/contact/search.' + extension;
 	var input, filter, ul, li, a, i, txtValue;
-	
+
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-		
+
 	// This block of code does a "live"
     input = document.getElementById("searchBar");
     filter = input.value.toUpperCase();
@@ -248,7 +250,7 @@ function searchContact2()
         if (txtValue.toUpperCase().indexOf(filter) > -1) {
             li[i].style.display = "";
         } else {
-			li[i].style.display = "none";           
+			li[i].style.display = "none";
 	 	}
     }
 }
@@ -261,7 +263,7 @@ function editPage()
 	var phoneNumber = document.getElementById("phoneNumber").value;
 	var addressContact = document.getElementById("addressContact").value;
 	var notesContact = document.getElementById("notesContact").value;
-	
+
 	//This should fill in the text boxes
 	firstName = document.getElementById("firstName").innerHTML;
 	lastName = document.getElementById("lastName").innerHTML;
@@ -269,7 +271,7 @@ function editPage()
 	phoneNumber = document.getElementById("phoneNumber").innerHTML;
 	addressContact = document.getElementById("addressContact").innerHTML;
 	notesContact = document.getElementById("notesContact").innerHTML;
-		
+
 	//This will allow the change
 	var jsonPayload = '{FirstName" : "' + firstName + '", "LastName" : "' +lastName+ '", "Email" : "' +emailContact+ '", "PhoneNumber" : "' +phoneNumber+ '", "Address" : "' +addressContact+ '", "AdditionalNotes" : "' +notesContact+ '", "UserID" : ' + userId + '}';
 	var url = urlBase + '/api/contact/update.' + extension;
@@ -294,14 +296,14 @@ function editPage()
 				if(jsonObject.results != undefined)
 				for( var i=0; i<jsonObject.results.length; i++ )
 				{
-					
+
 					var firstName = "";
 					var lastName = "";
 					var emailContact = "";
 					var phoneNumber = "";
 					var addressContact = "";
 					var notesContact = "";
-					
+
 					document.getElementById("firstName").innerHTML = firstName;
 					document.getElementById("lastName").innerHTML = lastName;
 					document.getElementById("emailContact").innerHTML = emailContact;
@@ -322,7 +324,7 @@ function editPage()
 
 function goToEditPage()
 {
-	window.location.href = "editContact.html"; 
+	window.location.href = "editContact.html";
 
 	var jsonPayload = '{"id" : "' + id + '"}';
 	var url = urlBase + '/api/contact/api/contact/update.' + extension;
@@ -341,14 +343,14 @@ function goToEditPage()
 				if(jsonObject.results != undefined)
 				for( var i=0; i<jsonObject.results.length; i++ )
 				{
-					
+
 					var firstName = "";
 					var lastName = "";
 					var emailContact = "";
 					var phoneNumber = "";
 					var addressContact = "";
 					var notesContact = "";
-					
+
 					document.getElementById("firstName").innerHTML = firstName;
 					document.getElementById("lastName").innerHTML = lastName;
 					document.getElementById("emailContact").innerHTML = emailContact;
