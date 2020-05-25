@@ -45,5 +45,25 @@ class Users
 			die("There's an error in the query!");
 		}
 	}
+
+	// checking if user exists for account creation
+	public function getUser()
+	{
+		try
+		{
+			$sql = "SELECT * FROM Users WHERE Login=:login";
+			$stmt = $this
+				->db
+				->prepare($sql);
+			$data = ['login' => $this->_username];
+			$stmt->execute($data);
+			$result = $stmt->fetch(\PDO::FETCH_ASSOC);
+			return $result;
+		}
+		catch(Exception $e)
+		{
+			die("There's an error in the query!");
+		}
+	}
 }
 ?>

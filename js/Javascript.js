@@ -10,7 +10,7 @@ function doSignUp()
 	var userName = document.getElementById("newUserName").value;
 	var password = document.getElementById("newPassword").value;
 
-	if (!userName || userName.length == 0 || !password || password.length == 0)
+	if (!userName || userName.length === 0 || !password || password.length === 0)
 	{
 		document.getElementById("signUpResult").innerHTML = "Please enter a username and password.";
 		return;
@@ -25,22 +25,39 @@ function doSignUp()
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, false);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+	var createdFlag = false;
 	try
 	{
 		xhr.onreadystatechange = function()
 		{
+		    // API returns 409 if account was not able to be created
+            if (this.status == 409)
+            {
+                document.getElementById("signUpResult").innerHTML = "User could not be created";
+                return; // return seems to not do anything in this context
+            }
+
+
 			if (this.readyState == 4 && this.status == 200)
 			{
 				document.getElementById("signUpResult").innerHTML = "User has been added"; // Remove msg when working
+				createdFlag = true;
 			}
 		};
 		xhr.send(jsonPayload);
-		saveCookie();
-		window.location.href = "contactPage.html";
+
 	}
 	catch(err)
 	{
 		document.getElementById("signUpResult").innerHTML = err.message;
+	}
+
+	// if accoutn is created, go to logged in page
+	if (createdFlag)
+	{
+	    saveCookie();
+        window.location.href = "contactPage.html";
 	}
 }
 
@@ -153,6 +170,12 @@ function addContact()
 	var addressContact = document.getElementById("addressContact").value;
 	var notesContact = document.getElementById("notesContact").value;
 
+	if (!firstName || firstName == "" || !lastName || lastName == "")
+	{
+		document.getElementById("contactAddResult").innerHTML = "Please enter the required fields.";
+		return;
+	}
+
 	document.getElementById("contactAddResult").innerHTML = "";
 
 	var jsonPayload = '{"FirstName" : "' + firstName + '", "LastName" : "' +lastName+ '", "Email" : "' +emailContact+ '", "PhoneNumber" : "' +phoneNumber+ '", "Address" : "' +addressContact+ '", "AdditionalNotes" : "' +notesContact+ '", "UserID" : ' + userId + '}';
@@ -165,11 +188,6 @@ function addContact()
 	{
 		xhr.onreadystatechange = function()
 		{
-			if (this.readyState.firstName == "" || this.readyState.lastName == "")
-			{
-				document.getElementById("contactAddResult").innerHTML = "Please enter the required fields.";
-				return;
-			}
 			if (this.readyState == 4 && this.status == 200)
 			{
 				document.getElementById("contactAddResult").innerHTML = "Knightact has been Added";
@@ -264,6 +282,13 @@ function editPage()
 	var addressContact = document.getElementById("addressContact").value;
 	var notesContact = document.getElementById("notesContact").value;
 
+	if (!firstName || firstName == "" || !lastName || lastName == "")
+	{
+		document.getElementById("contactAddResult").innerHTML = "Please enter the required fields.";
+		return;
+	}
+
+
 	//This should fill in the text boxes
 	firstName = document.getElementById("firstName").innerHTML;
 	lastName = document.getElementById("lastName").innerHTML;
@@ -283,11 +308,7 @@ function editPage()
 	{
 		xhr.onreadystatechange = function()
 		{
-			if (this.readyState.firstName == "" || this.readyState.lastName == "")
-			{
-				document.getElementById("contactAddResult").innerHTML = "Please enter the required fields.";
-				return;
-			}
+
 			if (this.readyState == 4 && this.status == 200)
 			{
 				document.getElementById("editResult").innerHTML = "Knightact has been Updated";

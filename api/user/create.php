@@ -14,6 +14,16 @@ switch($requestMethod) {
 		$user->setUsername($data->username);
 		$user->setPassword($data->password);
 
+		$userInfo = $user->getUser();
+
+		if (!empty($userInfo))
+		{
+			header("HTTP/1.0 409 Conflict");
+			$js_encode = json_encode(array('status'=>FALSE, 'message'=>'User creation failed'), true);
+			echo $js_encode;
+			break;
+		}
+
 		$userInfo = $user->createUser();
 
 		if(!empty($userInfo)) {
