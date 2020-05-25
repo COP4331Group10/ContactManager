@@ -63,7 +63,7 @@ body
     opacity: 95%;
 }
 
-#loginName,#loginPassword, #signupText, #signupPassword
+#loginName,#loginPassword, #newUserName, #newPassword
 {
     font-size: 27px;
 }
@@ -136,12 +136,14 @@ input[type="text"], input[type="password"]
     color: black;
 }
 
-#loginResult /* I'm not sure what this does*/
+#loginResult, #signUpResult
 {
     display: inline-block;
+    background-color:goldenrod;
     font-size: 0.8em;
     width: 90%;
     text-align: center;
+    margin-top: 1%;
     margin-left: 5%;
     margin-bottom: 2%;
     font-family: 'Varela Round', 'Calibri', Arial;
@@ -330,7 +332,7 @@ label
     margin-right: 0;
 }
 
-#required /* I'm not sure what this does*/
+#required
 {
     font-family: 'Varela Round', 'Calibri', Arial;
     color: darkred;

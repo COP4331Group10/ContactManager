@@ -1,17 +1,21 @@
-var urlBase = 'http://knightacts.ueuo.com/';
+var urlBase = 'http://knightacts.ueuo.com';
 var extension = 'php';
 
 var userId = 0;
 
 function doSignup()
 {
-	var login = document.getElementById("signupText").value;
-	var password = document.getElementById("loginPassword").value;
+	uderId = 0;
+	var userName = document.getElementById("newUserName").value;
+	var password = document.getElementById("newPassword").value;
 	var hash = md5( password );
-	var url = urlBase + '/Signup.' + extension;
+
+	document.getElementById("signUpResult").innerHTML = "";
+	var jsonPayload = '{"Username" : "' + userName + '", "password" : "' + hash + '"}';
+	var url = urlBase + '/api/user/create.' + extension;
 	
 	var xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
+	xhr.open("POST", url, false);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 	try
 	{
@@ -19,14 +23,16 @@ function doSignup()
 		{
 			if (this.readyState == 4 && this.status == 200) 
 			{
-				document.getElementById("signupResult").innerHTML = "User has been added. Please log in now.";
+				document.getElementById("signUpResult").innerHTML = "User has been added";
 			}
 		};
 		xhr.send(jsonPayload);
+		saveCookie();
+		window.location.href = "contactPage.html";
 	}
 	catch(err)
 	{
-		document.getElementById("signupResult").innerHTML = err.message;
+		document.getElementById("signUpResult").innerHTML = err.message;
 	}
 }
 
@@ -41,7 +47,7 @@ function doLogin()
 	document.getElementById("loginResult").innerHTML = "";
 
 	var jsonPayload = '{"login" : "' + login + '", "password" : "' + hash + '"}';
-	var url = urlBase + '/Login.' + extension;
+	var url = urlBase + '/api/user/login.' + extension;
 
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, false);
@@ -59,12 +65,8 @@ function doLogin()
 			document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
 			return;
 		}
-		
-		firstName = jsonObject.firstName;
-		lastName = jsonObject.lastName;
 
 		saveCookie();
-	
 		window.location.href = "contactPage.html";
 	}
 	catch(err)
@@ -146,7 +148,7 @@ function addContact()
 	document.getElementById("contactAddResult").innerHTML = "";
 	
 	var jsonPayload = '{"First Name" : "' + firstName + '", "Last Name" : "' +lastName+ '", "Email" : "' +emailContact+ '", "Phone Number" : "' +phoneNumber+ '", "Address" : "' +addressContact+ '", "Notes" : "' +notesContact+ '", "userId" : ' + userId + '}';
-	var url = urlBase + '/AddContact.' + extension;
+	var url = urlBase + 'api/contact/create.' + extension;
 	
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
@@ -176,7 +178,7 @@ function searchContact()
 	var contactList = "";
 	
 	var jsonPayload = '{"search" : "' + srch + '","userId" : ' + userId + '}'; // ????
-	var url = urlBase + '/SearchContacts.' + extension;
+	var url = urlBase + '/api/contact/search.' + extension;
 	
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
@@ -229,7 +231,7 @@ function editPage()
 		
 	//This will allow the change
 	var jsonPayload = '{"First Name" : "' + firstName + '","Last Name" : "' + lastName + '","Email" : "' + emailContact + '","PhoneNumber" : "' + phoneNumber + '","Address" : "' + addressContact + '","Notes" : "' + notesContact + '","id" : "' + id + '","Email" : "' + email + '"}';
-	var url = urlBase + '/EditContact.' + extension;
+	var url = urlBase + '/api/contact/update.' + extension;
 
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
@@ -277,7 +279,7 @@ function editButton()
 	window.location.href = "editContact.html"; //redirects to edit page
 
 	var jsonPayload = '{"id" : "' + id + '"}';
-	var url = urlBase + '/EditSearch.' + extension;
+	var url = urlBase + '/api/contact/get.' + extension;
 
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
@@ -324,8 +326,8 @@ function deleteContact()
 	var prompt = confirm("Are you sure you want to delete this Knightact?");
 	if(prompt)
 	{
-		var jsonPayload = '{"id" : "' + id + '"}';
-		var url = urlBase + '/DeleteContact.' + extension;
+		var jsonPayload = '{"userId" : "' + id + '"}';
+		var url = urlBase + '/api/contact/delete.' + extension;
 
 		var xhr = new XMLHttpRequest();
 		xhr.open("POST", url, true);
