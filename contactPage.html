@@ -22,19 +22,26 @@
             </div>
             <div class="right">
                 <!--The search bar automatically updates with each character -->
-                <input type="text" id="searchBar" placeholder="Search..." oninput="searchContacts();"/>
+                <input type="text" id="searchBar" placeholder="Search..." oninput="searchContact2();"/>
                 <span id="contactSearchResult"></span>
             </div>
         </div>
     </div>
 
-    <!-- Here is where the contacts will apprear as a button list-->
-    <!-- Clicking them will take you to the edit contact page-->
+    <!-- Here is where the contacts will apprear as a list-->
+    <!-- Clicking them will take you to the edit contact page for that contact- autofilled info-->
     <div class="container2">
-        <button type="button" id="contact" onclick="editButton();">Knightro</button>
-        <button>Knugget</button>
-        <!-- might need to change-->
-
+        <ul id="myUL">
+            <li><a id="contact" onclick="goToEditPage();" >Knightro</a></li>
+            <li><a id="contact" onclick="goToEditPage();" >John</a></li>
+            <li><a id="contact" onclick="goToEditPage();" >Josh</a></li>
+            <li><a id="contact" onclick="goToEditPage();" >Daniela</a></li>
+            <li><a id="contact" onclick="goToEditPage();" >Luis</a></li>
+            <li><a id="contact" onclick="goToEditPage();" >Ngoc</a></li>
+            <li><a id="contact" onclick="goToEditPage();" >Brock</a></li>
+            <li><a id="contact" onclick="goToEditPage();" >Paul</a></li>
+            <li><a id="contact" onclick="goToEditPage();" >Knugget</a></li>
+        </ul>
     </div>
     
 </body>
