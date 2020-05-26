@@ -3,7 +3,7 @@ body
 {
     background-color: darkblue; /*back-up color if pictures don't load*/
     background-image: url('../images/ucf1.jpg'),url('../images/ucf1b.jpg'); 
-	background-repeat: no-repeat, repeat-y;
+	background-repeat: repeat-x, repeat-y;
 	background-position-x: 50%;
     background-position-y: -100px;
     margin: 0;
