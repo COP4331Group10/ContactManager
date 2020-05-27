@@ -67,7 +67,7 @@ function doLogin()
 		
 		if( userId < 1 )
 		{
-			document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
+			document.getElementById("loginResult").innerHTML = "Either Username or Password is incorrect. Please try again.";
 			return;
 		}
 
@@ -228,6 +228,7 @@ function searchContacts()
 function searchContact2()
 {
 	var srch = document.getElementById("searchBar").value;
+	document.getElementById("contactSearchResult").innerHTML="";
 	var contactList = "";
 	var jsonPayload = '{"userId" : "' + userId + '","search" : ' + srch + '}';
 	var url = urlBase + '/api/contact/search.' + extension;
