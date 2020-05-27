@@ -153,7 +153,7 @@ function addContact()
 	
 	document.getElementById("contactAddResult").innerHTML = "";
 	
-	var jsonPayload = '{"FirstName" : "' + firstName + '", "LastName" : "' +lastName+ '", "Email" : "" "' +emailContact+ '", "PhoneNumber" : "' +phoneNumber+ '", "Address" : "' +addressContact+ '", "AdditionalNotes" : "' +notesContact+ '", "UserID" : ' + userId + '}';
+	var jsonPayload = '{"FirstName" : "' + firstName + '", "LastName" : "' +lastName+ '"  "", "Email" : "' +emailContact+ '", "PhoneNumber" : "' +phoneNumber+ '", "Address" : "' +addressContact+ '", "AdditionalNotes" : "' +notesContact+ '", "UserID" : ' + userId + '}';
 	var url = urlBase + '/api/contact/create.' + extension;
 	
 	var xhr = new XMLHttpRequest();
@@ -299,7 +299,7 @@ function editPage()
 	notesContact = document.getElementById("notesContact").innerHTML;
 		
 	//This will allow the change
-	var jsonPayload = '{FirstName" : "' + firstName + '", "LastName" : "' +lastName+ '", "Email" : "' +emailContact+ '", "PhoneNumber" : "' +phoneNumber+ '", "Address" : "' +addressContact+ '", "AdditionalNotes" : "' +notesContact+ '", "UserID" : ' + userId + '}';
+	var jsonPayload = '{FirstName" : "' + firstName + '", "LastName" : "' +lastName+ '"  "", "Email" : "' +emailContact+ '", "PhoneNumber" : "' +phoneNumber+ '", "Address" : "' +addressContact+ '", "AdditionalNotes" : "' +notesContact+ '", "UserID" : ' + userId + '}';
 	var url = urlBase + '/api/contact/update.' + extension;
 
 	var xhr = new XMLHttpRequest();
