@@ -237,6 +237,33 @@ function searchContact2()
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		xhr.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				document.getElementById("contactSearchResult").innerHTML = "Knightacts have been retrieved";
+				var jsonObject = JSON.parse( xhr.responseText );
+				
+				for( var i = 0; i < jsonObject.results.length; i++ )
+				{
+					contactList += jsonObject.results[i]; // need to print fname lname only
+					if( i < jsonObject.results.length - 1 )
+					{
+						contactList += "<br />\r\n"; // list here 
+					}
+				}
+				
+				document.getElementsByTagName("p")[0].innerHTML = contactList;
+			}
+		};
+		xhr.send(jsonPayload);
+	}
+	catch(err)
+	{
+		document.getElementById("contactSearchResult").innerHTML = err.message;
+	}	
 		
 	// This block of code does a "live"
     input = document.getElementById("searchBar");
