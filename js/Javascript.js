@@ -153,7 +153,7 @@ function addContact()
 	
 	document.getElementById("contactAddResult").innerHTML = "";
 	
-	var jsonPayload = '{"FirstName" : "' + firstName + '", "LastName" : "' +lastName+ '", "Email" : "' +emailContact+ '", "PhoneNumber" : "' +phoneNumber+ '", "Address" : "' +addressContact+ '", "AdditionalNotes" : "' +notesContact+ '", "UserID" : ' + userId + '}';
+	var jsonPayload = '{"FirstName" : "' + firstName + '", "LastName" : "' +lastName+ '", "Email" : "" "' +emailContact+ '", "PhoneNumber" : "' +phoneNumber+ '", "Address" : "' +addressContact+ '", "AdditionalNotes" : "' +notesContact+ '", "UserID" : ' + userId + '}';
 	var url = urlBase + '/api/contact/create.' + extension;
 	
 	var xhr = new XMLHttpRequest();
@@ -248,7 +248,7 @@ function searchContact2()
 				
 				for( var i = 0; i < jsonObject.results.length; i++ )
 				{
-					var arr = (jsonObject.results[i]).split(" ");
+					var arr = (jsonObject.results[i]).split("  ");
 					
 					
 					contactList += "" + arr[i + 1]; // list here 
