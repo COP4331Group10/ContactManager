@@ -250,11 +250,9 @@ function searchContact2()
 				{
 					var arr = (jsonObject.results[i]).split(" ");
 					
-					contactList += jsonObject.results[i]; // need to print fname lname only
-					if( i < jsonObject.results.length - 1 )
-					{
-						contactList += "" + arr[i + 1]; // list here 
-					}
+					
+					contactList += "" + arr[i + 1]; // list here 
+					
 				}
 				
 				document.getElementsByTagName("p")[0].innerHTML = contactList;
