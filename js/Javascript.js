@@ -287,7 +287,7 @@ function editPage()
 				document.getElementById("contactAddResult").innerHTML = "Please enter the required fields.";
 				return;
 			}
-			if (this.readyState == 4 && this.status == 200)
+			else if (this.readyState == 4 && this.status == 200)
 			{
 				document.getElementById("editResult").innerHTML = "Knightact has been Updated";
 				var jsonObject = JSON.parse( xhr.responseText );
