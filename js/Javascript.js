@@ -169,14 +169,15 @@ function addContact()
 	var phoneNumber = document.getElementById("phoneNumber").value;
 	var addressContact = document.getElementById("addressContact").value;
 	var notesContact = document.getElementById("notesContact").value;
+	document.getElementById("contactAddResult").innerHTML = "";
 
-	if (!firstName || firstName == "" || !lastName || lastName == "")
+	if (isEmpty(firstName) || isEmpty(lastName)
 	{
 		document.getElementById("contactAddResult").innerHTML = "Please enter the required fields.";
 		return;
 	}
 
-	document.getElementById("contactAddResult").innerHTML = "";
+	
 
 	var jsonPayload = '{"FirstName" : "' + firstName + '", "LastName" : "' +lastName+ '", "Email" : "' +emailContact+ '", "PhoneNumber" : "' +phoneNumber+ '", "Address" : "' +addressContact+ '", "AdditionalNotes" : "' +notesContact+ '", "UserID" : ' + userId + '}';
 	var url = urlBase + '/api/contact/create.' + extension;
