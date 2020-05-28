@@ -171,7 +171,7 @@ function addContact()
 	var notesContact = document.getElementById("notesContact").value;
 	document.getElementById("contactAddResult").innerHTML = "";
 
-	if (isEmpty(firstName) || isEmpty(lastName)
+	if (firstName == '' || lastName == '')
 	{
 		document.getElementById("contactAddResult").innerHTML = "Please enter the required fields.";
 		return;
