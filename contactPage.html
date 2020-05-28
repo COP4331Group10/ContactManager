@@ -3,11 +3,11 @@
 <head>
     <title>Knightacts- My Contacts</title>
     <script type="text/javascript" src="js/Javascript.js"></script> <!--back end-->
-    <link href="css/styles.css" rel="stylesheet" type="text/css">	
+    <link href="css/styles.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Varela+Round|Calibri" rel="stylesheet">
-    
-</head>    
-<body>
+
+</head>
+<body onload="getAllContacts();">
     <h1 id="title">My Knightacts</h1>
 
     <button type="button" id="logoutButton" class="buttons" onclick="doLogout();"> </button>
@@ -32,17 +32,8 @@
     <!-- Clicking them will take you to the edit contact page for that contact- autofilled info-->
     <div class="container2">
         <ul id="myUL">
-            <li><a id="contact" onclick="goToEditPage();" >Knightro</a></li>
-            <li><a id="contact" onclick="goToEditPage();" >John</a></li>
-            <li><a id="contact" onclick="goToEditPage();" >Josh</a></li>
-            <li><a id="contact" onclick="goToEditPage();" >Daniela</a></li>
-            <li><a id="contact" onclick="goToEditPage();" >Luis</a></li>
-            <li><a id="contact" onclick="goToEditPage();" >Ngoc</a></li>
-            <li><a id="contact" onclick="goToEditPage();" >Brock</a></li>
-            <li><a id="contact" onclick="goToEditPage();" >Paul</a></li>
-            <li><a id="contact" onclick="goToEditPage();" >Knugget</a></li>
         </ul>
     </div>
-    
+
 </body>
 </html>

@@ -451,19 +451,34 @@ function getAllContactsUser(id)
 		    var div = document.getElementById("myUL");
 		    var jsonObject = JSON.parse( xhr.responseText );
 
-		    for (i = 0; i < jsonObject.contacts.length; i++)
-		    {
-		        var content = document.createElement("a");
-		        content.id = "contact";
-		        content.setAttribute("onclick", "goToEditPage();");
+			if (jsonObject.contacts.length > 0)
+			{
+			    for (i = 0; i < jsonObject.contacts.length; i++)
+			    {
+			        var content = document.createElement("a");
+			        content.id = "contact";
+			        content.setAttribute("onclick", "goToEditPage();");
 
-		        content.innerHTML = jsonObject.contacts[i].FirstName;
+			        content.innerHTML = jsonObject.contacts[i].FirstName;
 
-		        var contact = document.createElement("li");
-                contact.appendChild(content);
+			        var contact = document.createElement("li");
+	                contact.appendChild(content);
 
-                div.appendChild(contact);
-		    }
+	                div.appendChild(contact);
+			    }
+			}
+			else
+			{
+				var content = document.createElement("a");
+				content.id = "contact";
+
+				content.innerHTML = "No contacts found";
+
+				var contact = document.createElement("li");
+				contact.appendChild(content);
+
+				div.appendChild(contact);
+			}
 		}
 		xhr.send(null); // sending null since get request
 	}
