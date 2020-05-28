@@ -3,6 +3,8 @@ var extension = 'php';
 
 var userId = 0;
 
+var usersJson = null;
+
 // Creates an account for the new user.
 function doSignUp()
 {
@@ -254,19 +256,13 @@ function searchContacts()
 // SearchContacts2() is what is currently being called in contactPage.html. It does a "live" search
 // based on tag name. Needs to instead go off of firstName, lastName of the contact objects - which I don't think
 // are being stored. Also needs to be connected to the API.
+
+// TODO : Change to read from var usersJson - json object
 function searchContact2()
 {
-	readCookie();
-
 	var srch = document.getElementById("searchBar").value;
 	var contactList = "";
-	var jsonPayload = '{"userId" : "' + userId + '","search" : ' + srch + '}';
-	var url = urlBase + '/api/contact/search.' + extension;
 	var input, filter, ul, li, a, i, txtValue;
-
-	var xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
-	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 
 	// This block of code does a "live"
     input = document.getElementById("searchBar");
@@ -284,144 +280,132 @@ function searchContact2()
     }
 }
 
+function loadEditPage()
+{
+	var urlParams = new URLSearchParams(window.location.search);
+
+	var firstName = document.getElementById("firstNameText");
+	var lastName = document.getElementById("lastNameText");
+	var emailContact = document.getElementById("emailContact");
+	var phoneNumber = document.getElementById("phoneNumber");
+	var addressContact = document.getElementById("addressContact");
+	var notesContact = document.getElementById("notesContact");
+
+	var jsonPayload = null;
+	var url = urlBase + '/api/contact/get/' + Number(urlParams.get('id'));
+
+	var xhr = new XMLHttpRequest();
+	xhr.open("GET", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		xhr.onreadystatechange = function()
+		{
+
+			if (this.readyState == 4 && this.status == 200)
+			{
+				var jsonObject = JSON.parse( xhr.responseText );
+
+				firstName.value = jsonObject.contact.FirstName;
+				lastName.value = jsonObject.contact.LastName;
+				emailContact.value = jsonObject.contact.Email;
+				phoneNumber.value = jsonObject.contact.PhoneNumber;
+				addressContact.value = jsonObject.contact.Address;
+				notesContact.value = jsonObject.contact.AdditionalNotes;
+
+			}
+		};
+		xhr.send(jsonPayload);
+	}
+	catch(err)
+	{
+		document.getElementById("editResult").innerHTML = err.message;
+	}
+}
+
 function editPage()
 {
+    var urlParams = new URLSearchParams(window.location.search);
+
 	readCookie();
 
-	var firstName = document.getElementById("firstName").value;
-	var lastName = document.getElementById("lastName").value;
+	var firstName = document.getElementById("firstNameText").value;
+	var lastName = document.getElementById("lastNameText").value;
 	var emailContact = document.getElementById("emailContact").value;
 	var phoneNumber = document.getElementById("phoneNumber").value;
 	var addressContact = document.getElementById("addressContact").value;
 	var notesContact = document.getElementById("notesContact").value;
-	//This should fill in the text boxes
-	firstName = document.getElementById("firstName").innerHTML;
-	lastName = document.getElementById("lastName").innerHTML;
-	emailContact = document.getElementById("emailContact").innerHTML;
-	phoneNumber = document.getElementById("phoneNumber").innerHTML;
-	addressContact = document.getElementById("addressContact").innerHTML;
-	notesContact = document.getElementById("notesContact").innerHTML;
 
 	if (firstName == '' || lastName == '')
 	{
-		document.getElementById("contactAddResult").innerHTML = "Please enter the required fields.";
+		document.getElementById("contactEditResult").innerHTML = "Please enter the required fields.";
 		return;
 	}
 
 	else
 	{
-	//This will allow the change
-	var jsonPayload = '{FirstName" : "' + firstName + '", "LastName" : "' +lastName+ '", "Email" : "' +emailContact+ '", "PhoneNumber" : "' +phoneNumber+ '", "Address" : "' +addressContact+ '", "AdditionalNotes" : "' +notesContact+ '", "UserID" : ' + userId + '}';
-	var url = urlBase + '/api/contact/update';
+		//This will allow the change
+		var jsonPayload = '{"FirstName" : "' + firstName + '", "LastName" : "' +lastName+ '", "Email" : "' +emailContact+ '", "PhoneNumber" : "' +phoneNumber+ '", "Address" : "' +addressContact+ '", "AdditionalNotes" : "' +notesContact+ '", "ID" : ' + Number(urlParams.get('id')) + '}';
+		var url = urlBase + '/api/contact/update';
 
-	var xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
-	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-	try
-	{
-		xhr.onreadystatechange = function()
+		var xhr = new XMLHttpRequest();
+		xhr.open("POST", url, true);
+		xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+		try
 		{
-
-			if (this.readyState == 4 && this.status == 200)
+			xhr.onreadystatechange = function()
 			{
-				document.getElementById("editResult").innerHTML = "Knightact has been Updated";
-				var jsonObject = JSON.parse( xhr.responseText );
 
-				if(jsonObject.results != undefined)
-				for( var i=0; i<jsonObject.results.length; i++ )
+				if (this.readyState == 4 && this.status == 200)
 				{
+					document.getElementById("contactEditResult").innerHTML = "Knightact has been Updated";
 
-					var firstName = "";
-					var lastName = "";
-					var emailContact = "";
-					var phoneNumber = "";
-					var addressContact = "";
-					var notesContact = "";
-
-					document.getElementById("firstName").innerHTML = firstName;
-					document.getElementById("lastName").innerHTML = lastName;
-					document.getElementById("emailContact").innerHTML = emailContact;
-					document.getElementById("phoneNumber").innerHTML = phoneNumber;
-					document.getElementById("addressContact").innerHTML = addressContact;
-					document.getElementById("notesContact").innerHTML = notesContact;
 				}
-			}
-		};
-		xhr.send(jsonPayload);
-	}
-	catch(err)
-	{
-		document.getElementById("editResult").innerHTML = err.message;
-	}
+			};
+			xhr.send(jsonPayload);
+		}
+		catch(err)
+		{
+			document.getElementById("contactEditResult").innerHTML = err.message;
+		}
 	}
 }
 
 
-function goToEditPage()
+function goToEditPage(id)
 {
-	readCookie();
+	//readCookie();
 
-	window.location.href = "editContact.html";
-
-	var jsonPayload = null;
-	var url = urlBase + '/api/contact/api/contact/update.' + extension;
-
-	var xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
-	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-	try
-	{
-		xhr.onreadystatechange = function()
-		{
-			if (this.readyState == 4 && this.status == 200)
-			{
-				var jsonObject = JSON.parse( xhr.responseText );
-
-				if(jsonObject.results != undefined)
-				for( var i=0; i<jsonObject.results.length; i++ )
-				{
-
-					var firstName = "";
-					var lastName = "";
-					var emailContact = "";
-					var phoneNumber = "";
-					var addressContact = "";
-					var notesContact = "";
-
-					document.getElementById("firstName").innerHTML = firstName;
-					document.getElementById("lastName").innerHTML = lastName;
-					document.getElementById("emailContact").innerHTML = emailContact;
-					document.getElementById("phoneNumber").innerHTML = phoneNumber;
-					document.getElementById("addressContact").innerHTML = addressContact;
-					document.getElementById("notesContact").innerHTML = notesContact;
-				}
-			}
-		};
-		xhr.send(jsonPayload);
-	}
-	catch(err)
-	{
-		document.getElementById("editResult").innerHTML = err.message;
-	}
+	window.location.href = "editContact.html?id=" + Number(id);
 }
 
-function deleteContact(id)
+function deleteContact()
 {
+    var urlParams = new URLSearchParams(window.location.search);
+
 	readCookie();
 
 	var prompt = confirm("Are you sure you want to delete this Knightact?");
 	if(prompt)
 	{
-		var url = urlBase + '/api/contact/delete/' + Number(id);
+		var url = urlBase + '/api/contact/delete/' + Number(urlParams.get('id'));
 		var jsonPayload = null;
 		var xhr = new XMLHttpRequest();
 		xhr.open("POST", url, true);
 		xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 		try
 		{
+		    xhr.onreadystatechange = function()
+			{
+
+				if (this.readyState == 4 && this.status == 200)
+				{
+
+				    window.location.href = "contactPage.html";
+				}
+			}
 			xhr.send(jsonPayload);
-			window.location.href = "contactPage.html";
-			getAllContacts();
+
 		}
 		catch(err)
 		{
@@ -449,17 +433,17 @@ function getAllContactsUser(id)
 		xhr.onreadystatechange = function()
 		{
 		    var div = document.getElementById("myUL");
-		    var jsonObject = JSON.parse( xhr.responseText );
+		    usersJson = JSON.parse( xhr.responseText );
 
-			if (jsonObject.contacts.length > 0)
+			if (usersJson.status)
 			{
-			    for (i = 0; i < jsonObject.contacts.length; i++)
+			    for (i = 0; i < usersJson.contacts.length; i++)
 			    {
 			        var content = document.createElement("a");
 			        content.id = "contact";
-			        content.setAttribute("onclick", "goToEditPage();");
+			        content.setAttribute("onclick", "goToEditPage(" + usersJson.contacts[i].ID + ");");
 
-			        content.innerHTML = jsonObject.contacts[i].FirstName;
+			        content.innerHTML = usersJson.contacts[i].FirstName + " " + usersJson.contacts[i].LastName;
 
 			        var contact = document.createElement("li");
 	                contact.appendChild(content);
