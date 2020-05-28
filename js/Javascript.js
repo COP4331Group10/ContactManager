@@ -199,6 +199,8 @@ function addContact()
 				if (this.readyState == 4 && this.status == 200)
 				{
 					document.getElementById("contactAddResult").innerHTML = "Knightact has been Added";
+
+					setTimeout(returnToContactPage, 1000);
 				}
 			};
 			xhr.send(jsonPayload);
@@ -210,55 +212,12 @@ function addContact()
 	}
 }
 
-function searchContacts()
-{
-	readCookie();
-
-	var srch = document.getElementById("searchBar").value;
-
-	var contactList = "";
-
-	var jsonPayload = '{"userId" : "' + userId + '","search" : ' + srch + '}';
-	var url = urlBase + '/api/contact/search.' + extension;
-
-	var xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
-	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-	try
-	{
-		xhr.onreadystatechange = function()
-		{
-			if (this.readyState == 4 && this.status == 200)
-			{
-				document.getElementById("contactSearchResult").innerHTML = "Knightacts have been retrieved";
-				var jsonObject = JSON.parse( xhr.responseText );
-
-				for( var i = 0; i < jsonObject.results.length; i++ )
-				{
-					contactList += jsonObject.results[i]; // need to print fname lname only
-					if( i < jsonObject.results.length - 1 )
-					{
-						contactList += "<br />\r\n"; // list here
-					}
-				}
-
-				document.getElementsByTagName("p")[0].innerHTML = contactList;
-			}
-		};
-		xhr.send(jsonPayload);
-	}
-	catch(err)
-	{
-		document.getElementById("contactSearchResult").innerHTML = err.message;
-	}
-}
-
 // SearchContacts2() is what is currently being called in contactPage.html. It does a "live" search
 // based on tag name. Needs to instead go off of firstName, lastName of the contact objects - which I don't think
 // are being stored. Also needs to be connected to the API.
 
 // TODO : Change to read from var usersJson - json object
-function searchContact2()
+function searchContacts()
 {
 	var srch = document.getElementById("searchBar").value;
 	var contactList = "";
