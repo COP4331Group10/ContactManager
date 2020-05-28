@@ -401,7 +401,7 @@ function deleteContact()
 	if(prompt)
 	{
 		var url = urlBase + '/api/contact/delete.' + extension;
-
+		var jsonPayload = '{"id" : "' + id + '"}';
 		var xhr = new XMLHttpRequest();
 		xhr.open("POST", url, true);
 		xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
@@ -421,7 +421,6 @@ function deleteContact()
 function getAllContacts()
 {
 	var userId = 1;
-
 	var url = urlBase + '/api/contact/getUserContacts/' + '1';
 
 	var xhr = new XMLHttpRequest();
