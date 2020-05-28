@@ -92,6 +92,7 @@ function doLogin()
 
 		saveCookie();
 		window.location.href = "contactPage.html";
+		getAllContacts();
 	}
 	catch(err)
 	{
@@ -153,6 +154,7 @@ function moveToSignUp()
 function returnToContactPage()
 {
 	window.location.href = "contactPage.html";
+	getAllContacts();
 }
 
 function goToAddContact()
@@ -404,6 +406,7 @@ function deleteContact()
 		{
 			xhr.send(jsonPayload);
 			window.location.href = "contactPage.html";
+			getAllContacts();
 		}
 		catch(err)
 		{
