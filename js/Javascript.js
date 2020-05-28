@@ -286,14 +286,6 @@ function editPage()
 	var phoneNumber = document.getElementById("phoneNumber").value;
 	var addressContact = document.getElementById("addressContact").value;
 	var notesContact = document.getElementById("notesContact").value;
-
-	if (firstName == '' || lastName == '')
-	{
-		document.getElementById("contactAddResult").innerHTML = "Please enter the required fields.";
-		return;
-	}
-
-	
 	//This should fill in the text boxes
 	firstName = document.getElementById("firstName").innerHTML;
 	lastName = document.getElementById("lastName").innerHTML;
@@ -301,6 +293,13 @@ function editPage()
 	phoneNumber = document.getElementById("phoneNumber").innerHTML;
 	addressContact = document.getElementById("addressContact").innerHTML;
 	notesContact = document.getElementById("notesContact").innerHTML;
+
+	if (firstName == '' || lastName == '')
+	{
+		document.getElementById("contactAddResult").innerHTML = "Please enter the required fields.";
+		return;
+	}
+
 	else
 	{
 	//This will allow the change
