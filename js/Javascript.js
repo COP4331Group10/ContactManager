@@ -283,7 +283,7 @@ function editPage()
 	var addressContact = document.getElementById("addressContact").value;
 	var notesContact = document.getElementById("notesContact").value;
 
-	if (!firstName || firstName == "" || !lastName || lastName == "")
+	if (firstName == '' || lastName == '')
 	{
 		document.getElementById("contactAddResult").innerHTML = "Please enter the required fields.";
 		return;
