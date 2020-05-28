@@ -130,7 +130,7 @@ function readCookie()
 	}
 	else
 	{
-		document.getElementById("userId").innerHTML = "Logged in as " + userId;
+		//document.getElementById("userId").innerHTML = "Logged in as " + userId;
 	}
 }
 
@@ -165,6 +165,8 @@ function goToAddContact()
 // Creates a new contact
 function addContact()
 {
+	readCookie();
+
 	var firstName = document.getElementById("firstNameText").value;
 	var lastName = document.getElementById("lastNameText").value;
 	var emailContact = document.getElementById("emailContact").value;
@@ -179,35 +181,37 @@ function addContact()
 		return;
 	}
 
-	
+
 	else
 	{
-	var jsonPayload = '{"FirstName" : "' + firstName + '", "LastName" : "' +lastName+ '", "Email" : "' +emailContact+ '", "PhoneNumber" : "' +phoneNumber+ '", "Address" : "' +addressContact+ '", "AdditionalNotes" : "' +notesContact+ '", "UserID" : ' + userId + '}';
-	var url = urlBase + '/api/contact/create.' + extension;
+		var jsonPayload = '{"FirstName" : "' + firstName + '", "LastName" : "' +lastName+ '", "Email" : "' +emailContact+ '", "PhoneNumber" : "' +phoneNumber+ '", "Address" : "' +addressContact+ '", "AdditionalNotes" : "' +notesContact+ '", "UserID" : ' + userId + '}';
+		var url = urlBase + '/api/contact/create.' + extension;
 
-	var xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
-	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-	try
-	{
-		xhr.onreadystatechange = function()
+		var xhr = new XMLHttpRequest();
+		xhr.open("POST", url, true);
+		xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+		try
 		{
-			if (this.readyState == 4 && this.status == 200)
+			xhr.onreadystatechange = function()
 			{
-				document.getElementById("contactAddResult").innerHTML = "Knightact has been Added";
-			}
-		};
-		xhr.send(jsonPayload);
-	}
-	catch(err)
-	{
-		document.getElementById("contactAddResult").innerHTML = err.message;
-	}
+				if (this.readyState == 4 && this.status == 200)
+				{
+					document.getElementById("contactAddResult").innerHTML = "Knightact has been Added";
+				}
+			};
+			xhr.send(jsonPayload);
+		}
+		catch(err)
+		{
+			document.getElementById("contactAddResult").innerHTML = err.message;
+		}
 	}
 }
 
 function searchContacts()
 {
+	readCookie();
+
 	var srch = document.getElementById("searchBar").value;
 
 	var contactList = "";
@@ -252,6 +256,8 @@ function searchContacts()
 // are being stored. Also needs to be connected to the API.
 function searchContact2()
 {
+	readCookie();
+
 	var srch = document.getElementById("searchBar").value;
 	var contactList = "";
 	var jsonPayload = '{"userId" : "' + userId + '","search" : ' + srch + '}';
@@ -280,6 +286,8 @@ function searchContact2()
 
 function editPage()
 {
+	readCookie();
+
 	var firstName = document.getElementById("firstName").value;
 	var lastName = document.getElementById("lastName").value;
 	var emailContact = document.getElementById("emailContact").value;
@@ -304,7 +312,7 @@ function editPage()
 	{
 	//This will allow the change
 	var jsonPayload = '{FirstName" : "' + firstName + '", "LastName" : "' +lastName+ '", "Email" : "' +emailContact+ '", "PhoneNumber" : "' +phoneNumber+ '", "Address" : "' +addressContact+ '", "AdditionalNotes" : "' +notesContact+ '", "UserID" : ' + userId + '}';
-	var url = urlBase + '/api/contact/update.' + extension;
+	var url = urlBase + '/api/contact/update';
 
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
@@ -351,9 +359,11 @@ function editPage()
 
 function goToEditPage()
 {
+	readCookie();
+
 	window.location.href = "editContact.html";
 
-	var jsonPayload = '{"id" : "' + id + '"}';
+	var jsonPayload = null;
 	var url = urlBase + '/api/contact/api/contact/update.' + extension;
 
 	var xhr = new XMLHttpRequest();
@@ -395,13 +405,15 @@ function goToEditPage()
 	}
 }
 
-function deleteContact()
+function deleteContact(id)
 {
+	readCookie();
+
 	var prompt = confirm("Are you sure you want to delete this Knightact?");
 	if(prompt)
 	{
-		var url = urlBase + '/api/contact/delete.' + extension;
-		var jsonPayload = '{"id" : "' + id + '"}';
+		var url = urlBase + '/api/contact/delete/' + Number(id);
+		var jsonPayload = null;
 		var xhr = new XMLHttpRequest();
 		xhr.open("POST", url, true);
 		xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
@@ -420,8 +432,14 @@ function deleteContact()
 
 function getAllContacts()
 {
-	var userId = 1;
-	var url = urlBase + '/api/contact/getUserContacts/' + '1';
+	readCookie();
+
+    getAllContactsUser(userId);
+}
+
+function getAllContactsUser(id)
+{
+	var url = urlBase + '/api/contact/getUserContacts/' + Number(id);
 
 	var xhr = new XMLHttpRequest();
 	xhr.open("GET", url, false);
