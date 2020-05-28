@@ -319,6 +319,8 @@ function editPage()
 				{
 					document.getElementById("contactEditResult").innerHTML = "Knightact has been Updated";
 
+					setTimeout(returnToContactPage, 1000);
+
 				}
 			};
 			xhr.send(jsonPayload);
