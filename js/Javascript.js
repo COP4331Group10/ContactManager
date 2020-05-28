@@ -180,7 +180,8 @@ function addContact()
 	}
 
 	
-
+	else
+	{
 	var jsonPayload = '{"FirstName" : "' + firstName + '", "LastName" : "' +lastName+ '", "Email" : "' +emailContact+ '", "PhoneNumber" : "' +phoneNumber+ '", "Address" : "' +addressContact+ '", "AdditionalNotes" : "' +notesContact+ '", "UserID" : ' + userId + '}';
 	var url = urlBase + '/api/contact/create.' + extension;
 
@@ -201,6 +202,7 @@ function addContact()
 	catch(err)
 	{
 		document.getElementById("contactAddResult").innerHTML = err.message;
+	}
 	}
 }
 
