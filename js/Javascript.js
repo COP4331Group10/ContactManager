@@ -293,7 +293,7 @@ function editPage()
 		return;
 	}
 
-
+	
 	//This should fill in the text boxes
 	firstName = document.getElementById("firstName").innerHTML;
 	lastName = document.getElementById("lastName").innerHTML;
@@ -301,7 +301,8 @@ function editPage()
 	phoneNumber = document.getElementById("phoneNumber").innerHTML;
 	addressContact = document.getElementById("addressContact").innerHTML;
 	notesContact = document.getElementById("notesContact").innerHTML;
-
+	else
+	{
 	//This will allow the change
 	var jsonPayload = '{FirstName" : "' + firstName + '", "LastName" : "' +lastName+ '", "Email" : "' +emailContact+ '", "PhoneNumber" : "' +phoneNumber+ '", "Address" : "' +addressContact+ '", "AdditionalNotes" : "' +notesContact+ '", "UserID" : ' + userId + '}';
 	var url = urlBase + '/api/contact/update.' + extension;
@@ -344,6 +345,7 @@ function editPage()
 	catch(err)
 	{
 		document.getElementById("editResult").innerHTML = err.message;
+	}
 	}
 }
 
