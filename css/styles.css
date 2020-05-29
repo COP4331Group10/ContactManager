@@ -136,16 +136,17 @@ input[type="text"], input[type="password"]
     text-shadow: 2px 1.5px black;
 }
 
-#loginResult, #signUpResult, #contactAddResult, #contactSearchResult, #contactEditResult
+#loginResult, #signUpResult, #contactAddResult, #contactEditResult
 {
     display: inline-block;
+    border-radius: 20px;
     background-color:goldenrod;
-    font-size: 0.8em;
-    width: 70%;
+    font-size: 20px;
+    width: 50%;
     text-align: center;
+    margin-left: 25%;
     margin-top: 1%;
     margin-bottom: 2%;
-    margin-left: 15%;
     font-family: 'Varela Round', 'Calibri', Arial;
     color: #95060a;
 }
@@ -231,26 +232,6 @@ input[type="text"], input[type="password"]
     width: 20em;
     margin-right: -30%;
     text-size-adjust: 30%;
-}
-
-/* EDIT THIS*/
-
-#colorSearchResult /* I'm not sure what this does*/
-{
-    display: none;
-}
-
-#contactAddResult, #contactEditResult/* for error msg*/
-{
-    display: inline-block;
-    font-size: 0.8em;
-    width: 90%;
-    text-align: center;
-    margin-left: 5%;
-    margin-top: 2%;
-    margin-bottom: 1%;
-    font-family: 'Varela Round', 'Calibri', Arial;
-    color: #95060a;
 }
 
 #notesContact, #notesContact2 /*The text box in add/edit contact*/
@@ -368,38 +349,6 @@ label
     width: 75%;
     margin-left: 0;
 }
-
-/*.container2 button 
-{
-    margin: auto;
-    font-family: 'Varela Round', 'Calibri', Arial;
-    font-size: 0.9em;
-    border-radius: 0.5em;
-    background-color: black; 
-    border: 1px solid white;
-    color: white;
-    padding: 10px 24px; 
-    cursor: pointer;
-    width: 50%;
-    display: block;
-    outline: 0;
-}*/
-
-/* Prevent double borders */
-/*.container2 button:not(:last-child) 
-{
-    border-bottom: none; 
-}
-
-.container2 button:hover 
-{
-    color: #FFFFFF;
-    border-color: black;
-    background-color: gold;
-    color: black;
-    opacity: 95%;
-}
-*/
 
 #myUL {
     list-style-type: none;
