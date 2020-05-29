@@ -10,6 +10,12 @@ body
     overflow-x: hidden;
 }
 
+@-o-viewport 
+{
+    width: device-width;
+    height: device-height;
+}
+
 #title 
 {
     font-size: 55px;
@@ -184,17 +190,13 @@ input[type="text"], input[type="password"]
 
 #buttonDiv
 {
-    margin-left: 10%;
-    text-align: left;
+    text-align: center;
     background-color: transparent;
-    /* TESTING HERE */
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-border-image: border-box;
     border-image: auto;
-
-    width:80%;
-    height: 30%;
+    line-height: 40px;
 }
 
 #searchOrAdd
@@ -214,24 +216,50 @@ input[type="text"], input[type="password"]
 
 .inner /* for 2 buttons on same line*/
 {
-    margin-left: 12%;
-    font-size: 150%;
-    font-family: 'Varela Round', 'Calibri', Arial;
     display: inline-block;
-    width: 20em;
-    margin-right: -30%;
-    text-size-adjust: 30%;
+    width: 35%;
+    margin: auto;
+    height: 35%;
+    background-color: transparent;
+    text-align: center;
+
+    /* Fix text spilling out of button resizing issue*/
 }
+
+.specialButtons /*the buttons on the same line in add/edit*/
+{
+    font-size: 1.3em;
+    font-family: 'Varela Round', 'Calibri', Arial;
+    text-align: center;
+    color: white;
+    background-color: black;
+    border-radius: 50px;
+    border-color: goldenrod;
+    outline: 0;
+    height: 1.5em;
+    /* Fix text spilling out of button resizing issue*/
+    width: 35%;
+    cursor: pointer;
+}
+
+.specialButtons:hover /*the buttons on the same line in add/edit*/
+{
+    color: #FFFFFF;
+    background-color: goldenrod;
+    opacity: 95%;
+}
+
 
 .inner-2 /* for 3 buttons on same line*/
 {
-    margin-left: 5%;
-    font-family: 'Varela Round', 'Calibri', Arial;
-    font-size: 150%;
     display: inline-block;
-    width: 20em;
-    margin-right: -30%;
-    text-size-adjust: 30%;
+    width: 25%;
+    margin: auto;
+    height: 35%;
+    background-color: transparent;
+    text-align: center;
+
+    /* Fix text spilling out of button resizing issue*/
 }
 
 #notesContact, #notesContact2 /*The text box in add/edit contact*/
