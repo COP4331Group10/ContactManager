@@ -163,7 +163,14 @@ function returnToContactPage()
 
 function getTitle()
 {
-	document.getElementById("userNameTitle").innerHTML = user.concat("'s Knightacts");
+	try
+	{
+		document.getElementById("userNameTitle").innerHTML = user.concat("'s Knightacts");
+	}
+	catch(err)
+	{
+		document.getElementById("userNameTitle").innerHTML = "My Knightacts";
+	}
 }
 
 function goToAddContact()
