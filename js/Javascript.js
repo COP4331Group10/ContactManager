@@ -2,6 +2,7 @@ var urlBase = 'http://knightacts.ueuo.com';
 var extension = 'php';
 
 var userId = 0;
+var user = "";
 
 var usersJson = null;
 
@@ -44,6 +45,7 @@ function doSignUp()
 			if (this.readyState == 4 && this.status == 200)
 			{
 				document.getElementById("signUpResult").innerHTML = "User has been added"; // Remove msg when working
+				user = userName;
 				createdFlag = true;
 			}
 		};
@@ -55,7 +57,7 @@ function doSignUp()
 		document.getElementById("signUpResult").innerHTML = err.message;
 	}
 
-	// if accoutn is created, go to logged in page
+	// if account is created, go to logged in page
 	if (createdFlag)
 	{
 	    saveCookie();
@@ -157,6 +159,11 @@ function returnToContactPage()
 {
 	window.location.href = "contactPage.html";
 	getAllContacts();
+}
+
+function getTitle()
+{
+	document.getElementById("userNameTitle").innerHTML = user.concat("'s Knightacts");
 }
 
 function goToAddContact()
@@ -335,8 +342,6 @@ function editPage()
 
 function goToEditPage(id)
 {
-	//readCookie();
-
 	window.location.href = "editContact.html?id=" + Number(id);
 }
 

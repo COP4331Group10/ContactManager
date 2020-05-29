@@ -16,7 +16,7 @@ body
     height: device-height;
 }
 
-#title 
+#title, #userNameTitle
 {
     font-size: 55px;
     /*font-size: 320%;*/
