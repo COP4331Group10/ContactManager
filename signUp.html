@@ -2,14 +2,13 @@
 <html>
 <head>
     <title>Knightacts- Create an Account</title>
-    <script type="text/javascript" src="js/md5.js"></script>  <!--hash file-->
-    <script type="text/javascript" src="js/Javascript.js"></script> <!--back end-->
     <link href="css/styles.css" rel="stylesheet" type="text/css">	
     <link href="https://fonts.googleapis.com/css?family=Varela+Round|Calibri" rel="stylesheet">
-    
+    <script type="text/javascript" src="js/md5.js"></script>        <!--hash file-->
+    <script type="text/javascript" src="js/Javascript.js"></script> <!--back end-->    
 </head>    
 <body style =   "background-image: url('images/ucf2.jpg'),url('images/ucf2b.jpg'); 
-                 background-repeat: repeat-x, repeat-y;
+                 background-repeat: no-repeat, repeat-y;
                  background-position: top -70px  right;">
 
     <h1 id="title">Create an Account</h1>
@@ -22,9 +21,7 @@
         <button type="button" id="loginButton" class="buttons" onclick="doSignUp();"> Charge On! </button><br>
         <span id="haveAccount"><br>Already have an account?</span><br>
         <button type="button" id="signup" class="buttons" onclick= "returnToLogin()";> Log In </button>
-
-        <span id="signUpResult"></span> <!--error field-->
-        
+        <span id="signUpResult"></span> <!--error field--> 
     </div>
     
 </body>
