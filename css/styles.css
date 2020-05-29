@@ -19,6 +19,7 @@ body
 #title 
 {
     font-size: 55px;
+    /*font-size: 320%;*/
     font-family: 'Varela Round', 'Calibri', Arial;
     text-align: center;
     color:black;
@@ -38,9 +39,12 @@ body
 
 #loginDiv /*: Welcome back Knight!*/
 {
-    font-size: 30px;
+    position:center;
+    /* font-size: 30px;*/
+    font-size: 200%;
     width: 70%;
     margin: auto;
+    /*width: 900px;*/
 }
 
 .buttons
@@ -219,13 +223,18 @@ input[type="text"], input[type="password"]
 .inner /* for 2 buttons on same line*/
 {
     display: inline-block;
-    width: 35%;
+    width: 38%;
     margin: auto;
     height: 35%;
     background-color: transparent;
     text-align: center;
 
     /* Fix text spilling out of button resizing issue*/
+}
+
+#okButton, #backButton
+{
+    width: 29%;
 }
 
 .specialButtons /*the buttons on the same line in add/edit*/
@@ -240,7 +249,7 @@ input[type="text"], input[type="password"]
     outline: 0;
     height: 1.5em;
     /* Fix text spilling out of button resizing issue*/
-    width: 35%;
+    width: 45%;
     cursor: pointer;
 }
 
@@ -255,7 +264,7 @@ input[type="text"], input[type="password"]
 .inner-2 /* for 3 buttons on same line*/
 {
     display: inline-block;
-    width: 25%;
+    width: 20%;
     margin: auto;
     height: 35%;
     background-color: transparent;
