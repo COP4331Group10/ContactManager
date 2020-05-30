@@ -2,7 +2,6 @@ var urlBase = 'http://knightacts.ueuo.com';
 var extension = 'php';
 
 var userId = 0;
-var user = "";
 
 var usersJson = null;
 
@@ -72,8 +71,6 @@ function doLogin()
 	var login = document.getElementById("loginName").value;
 	var password = document.getElementById("loginPassword").value;
 	var hash = md5( password );
-
-	user = login;
 
 	document.getElementById("loginResult").innerHTML = "";
 
@@ -164,14 +161,8 @@ function returnToContactPage()
 
 function getTitle()
 {
-	if(user === "")
-	{
-		document.getElementById("userNameTitle").innerHTML = "My Knightacts";
-	}
-	else
-	{
-		document.getElementById("userNameTitle").innerHTML = user.concat("'s  Knightacts");
-	}
+	
+	document.getElementById("userNameTitle").innerHTML = "My Knightacts";
 }
 
 function goToAddContact()
