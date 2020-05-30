@@ -10,12 +10,6 @@ body
     overflow-x: hidden;
 }
 
-@-o-viewport 
-{
-    width: device-width;
-    height: device-height;
-}
-
 #title, #userNameTitle
 {
     font-size: 55px;
@@ -77,14 +71,6 @@ body
     font-size: 27px;
 }
 
-#addContact /*button*/
-{
-    width: 90%;
-    border-color: gold;
-    display: inline-block;
-    margin-top: 4%;
-}
-
 #searchBar
 {
     background: url(../images/search_icon.png) no-repeat scroll .5px .5px;
@@ -97,8 +83,9 @@ body
     font-size: 26px;
     text-align: justify;
     display: inline-block;
-    width: 55%;
-    margin-top: 1.5%;
+    width: 70%;
+    margin-top: 1%;
+    margin-left: 12%;
 }
 
 input[type="text"], input[type="password"]
@@ -115,7 +102,7 @@ input[type="text"], input[type="password"]
     font-family: 'Varela Round', 'Calibri', Arial;
 }
 
-#welcome /*for log in page*/
+#welcome /*text shown in login page*/
 {
     border-radius: 20px;
     border-width: 50%;
@@ -220,7 +207,8 @@ input[type="text"], input[type="password"]
     border-radius: .5em .5em 0 0;
 }
 
-.inner /* for 2 buttons on same line*/
+/* Holds 2 buttons on same line in create contact*/
+.inner
 {
     display: inline-block;
     width: 38%;
@@ -228,8 +216,6 @@ input[type="text"], input[type="password"]
     height: 35%;
     background-color: transparent;
     text-align: center;
-
-    /* Fix text spilling out of button resizing issue*/
 }
 
 #okButton, #backButton
@@ -237,7 +223,8 @@ input[type="text"], input[type="password"]
     width: 29%;
 }
 
-.specialButtons /*the buttons on the same line in add/edit*/
+/*Formats buttons on the same line in add/edit */
+.specialButtons 
 {
     font-size: 1.3em;
     font-family: 'Varela Round', 'Calibri', Arial;
@@ -253,7 +240,8 @@ input[type="text"], input[type="password"]
     cursor: pointer;
 }
 
-.specialButtons:hover /*the buttons on the same line in add/edit*/
+/*Formats buttons on the same line in add/edit */
+.specialButtons:hover 
 {
     color: #FFFFFF;
     background-color: goldenrod;
@@ -261,7 +249,8 @@ input[type="text"], input[type="password"]
 }
 
 
-.inner-2 /* for 3 buttons on same line*/
+/* Holds 3 buttons on same line in edit contact*/
+.inner-2
 {
     display: inline-block;
     width: 20%;
@@ -269,11 +258,10 @@ input[type="text"], input[type="password"]
     height: 35%;
     background-color: transparent;
     text-align: center;
-
-    /* Fix text spilling out of button resizing issue*/
 }
 
-#notesContact, #notesContact2 /*The text box in add/edit contact*/
+/*The text box in add/edit contact*/
+#notesContact, #notesContact2
 {
     font-family: 'Varela Round', 'Calibri', Arial;
     width: 85%;
@@ -292,7 +280,8 @@ input[type="text"], input[type="password"]
     height: 70px;
 }
 
-.container /*The yellow add/edit contact box*/
+ /* Yellow add/edit contact box */
+.container
 {
     font-family: 'Varela Round', 'Calibri', Arial;
     border-radius: .5em;
@@ -306,7 +295,8 @@ input[type="text"], input[type="password"]
     box-shadow: 5px 10px 8px black;
 }
 
-.container2 /*The list of contacts box*/
+/* Yellow container that holds contact list*/
+.container2
 {
     font-family: 'Varela Round', 'Calibri', Arial;
     border-radius: 0 0 .5em 0.5em;
@@ -322,7 +312,8 @@ input[type="text"], input[type="password"]
     
 }
 
-.row:after /* 2 column formatting for contacts*/
+/* 2 Column formatting for contacts */
+.row:after 
 {
     content: "";
     display: table;
@@ -353,15 +344,9 @@ label
     margin-right: 0;
 }
 
-#required
-{
-    font-family: 'Varela Round', 'Calibri', Arial;
-    color: darkred;
-    font-size: 0.6em;
-}
-
+/* Contact input fields */
 #firstNameText, #lastNameText, #emailContact, #phoneNumber, #addressContact,
-#firstNameText2, #lastNameText2, #emailContact2, #phoneNumber2, #addressContact2 /*contact input fields*/
+#firstNameText2, #lastNameText2, #emailContact2, #phoneNumber2, #addressContact2 
 {
     border-color: black;
     padding-left: 3.5%;
@@ -375,27 +360,48 @@ label
     font-family: 'Varela Round', 'Calibri', Arial;
 }
 
-/* for black bar formatting */
-.left 
+#addContact /*button*/
 {
-    float: left;
-    width: 25%;
-}
-  
-.right 
-{
-    float: left;
-    width: 75%;
-    margin-left: 0;
+    text-align: center;
+    width: 60%;
+    border-color: gold;
+    display: inline-block;
+    margin-top: 2%;
+    margin-left: 12%;
 }
 
-#myUL {
+/* Format for black bar w/ search and add */
+.blackBar
+{
+    text-align: center;
+    height: 55px;
+}
+
+.left /* holds add button */
+{
+    float: left;
+    width: 40%;
+    text-align: left;
+}
+  
+.right /* holds search bar */
+{
+    float: right;
+    width: 60%;
+    margin-left: 0;
+    text-align: left;
+}
+
+/* Format for Contact list */
+#myUL 
+{
     list-style-type: none;
     padding: 0;
     margin: 0;
-  }
+}
   
-  #myUL li a {
+#myUL li a 
+{
     margin: auto;
     font-family: 'Varela Round', 'Calibri', Arial;
     font-size: 0.9em;
@@ -403,7 +409,7 @@ label
     background-color: black;
     border: 1px solid white;
     color: white;
-    padding: 10px 24px; /* Some padding */
+    padding: 10px 24px;
     cursor: pointer;
     width: 50%;
     display: block;
@@ -414,10 +420,17 @@ label
     display: block
   }
   
-  #myUL li a:hover:not(.header) {
+#myUL li a:hover:not(.header) 
+{
     color: #FFFFFF;
     border-color: black;
     background-color: gold;
     color: black;
     opacity: 95%;
-  }
+}
+
+@-o-viewport 
+{
+    width: device-width;
+    height: device-height;
+}
