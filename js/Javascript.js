@@ -73,6 +73,8 @@ function doLogin()
 	var password = document.getElementById("loginPassword").value;
 	var hash = md5( password );
 
+	user = login;
+
 	document.getElementById("loginResult").innerHTML = "";
 
 	var jsonPayload = '{"login" : "' + login + '", "password" : "' + hash + '"}';
