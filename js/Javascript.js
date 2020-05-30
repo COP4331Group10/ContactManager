@@ -45,7 +45,6 @@ function doSignUp()
 			if (this.readyState == 4 && this.status == 200)
 			{
 				document.getElementById("signUpResult").innerHTML = "User has been added"; // Remove msg when working
-				user = userName;
 				createdFlag = true;
 			}
 		};
@@ -163,13 +162,13 @@ function returnToContactPage()
 
 function getTitle()
 {
-	try
-	{
-		document.getElementById("userNameTitle").innerHTML = user.concat("'s Knightacts");
-	}
-	catch(err)
+	if(user === "")
 	{
 		document.getElementById("userNameTitle").innerHTML = "My Knightacts";
+	}
+	else
+	{
+		document.getElementById("userNameTitle").innerHTML = user.concat("'s  Knightacts");
 	}
 }
 
