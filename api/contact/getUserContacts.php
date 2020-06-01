@@ -13,11 +13,15 @@ switch($requestMethod) {
 			$contact->setUserID($userID);
 			$contactInfo = $contact->getUserContacts();
 		}
+
 		if(!empty($contactInfo)) {
-	      $js_encode = json_encode($contactInfo, true);
-        } else {
+			header("HTTP/1.0 200 OK");
+			$js_encode = json_encode(array('status'=>TRUE, 'contacts'=>$contactInfo), true);
+		} else {
 			header("HTTP/1.1 404 Not Found");
-        }
+			$js_encode = json_encode(array('status'=>FALSE, 'message'=>'User contacts not found'), true);
+		}
+
 		header('Content-Type: application/json');
 		echo $js_encode;
 		break;
@@ -25,4 +29,4 @@ switch($requestMethod) {
 		header("HTTP/1.0 405 Method Not Allowed");
 	break;
 }
-?>	
+?>
