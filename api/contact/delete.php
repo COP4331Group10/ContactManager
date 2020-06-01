@@ -1,13 +1,13 @@
 <?php
 header("Content-Type: application/json; charset=UTF-8");
-header("Access-Control-Allow-Methods: POST");
+header("Access-Control-Allow-Methods: DELETE");
 
 $requestMethod = $_SERVER["REQUEST_METHOD"];
 include ('../class/Contacts.php');
 $contact = new Contacts();
 switch ($requestMethod)
 {
-	case 'POST':
+	case 'DELETE':
 		$empId = '';
 		if ($_GET['id'])
 		{
