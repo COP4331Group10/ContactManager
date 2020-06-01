@@ -1,6 +1,6 @@
 <?php
 header("Content-Type: application/json; charset=UTF-8");
-header("Access-Control-Allow-Methods: PUT");
+header("Access-Control-Allow-Methods: POST");
 
 $requestMethod = $_SERVER["REQUEST_METHOD"];
 
@@ -12,7 +12,7 @@ $contact = new Contacts();
 $data = json_decode(file_get_contents("php://input"));
 
 switch($requestMethod) {
-	case 'PUT':
+	case 'POST':
 		$contact->setContactID($data->ID);
 		$contact->setFirstName($data->FirstName);
 		$contact->setLastName($data->LastName);
