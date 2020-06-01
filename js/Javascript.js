@@ -323,7 +323,7 @@ function editPage()
 		var url = urlBase + '/api/contact/update';
 
 		var xhr = new XMLHttpRequest();
-		xhr.open("PUT", url, true);
+		xhr.open("POST", url, true);
 		xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 		try
 		{
