@@ -235,7 +235,7 @@ function addContact()
 function searchContacts()
 {
 	var srch = document.getElementById("searchBar").value;
-	var contactList = "";
+	var contactList = "  ";
 	var input, filter, ul, li, a, i, txtValue;
 
 	// This block of code does a "live"
