@@ -11,8 +11,13 @@ class Users
 {
 
 	protected $db;
+	private $_id;
 	private $_username;
 	private $_password;
+
+	public function setUserID($ID) {
+		$this->_id = $ID;
+	}
 
 	public function setUsername($username) {
 		$this->_username = $username;
@@ -56,6 +61,25 @@ class Users
 				->db
 				->prepare($sql);
 			$data = ['login' => $this->_username];
+			$stmt->execute($data);
+			$result = $stmt->fetch(\PDO::FETCH_ASSOC);
+			return $result;
+		}
+		catch(Exception $e)
+		{
+			die("There's an error in the query!");
+		}
+	}
+
+	public function getUsername()
+	{
+		try
+		{
+			$sql = "SELECT Login FROM Users WHERE ID=:id";
+			$stmt = $this
+				->db
+				->prepare($sql);
+			$data = ['id' => $this->_id];
 			$stmt->execute($data);
 			$result = $stmt->fetch(\PDO::FETCH_ASSOC);
 			return $result;

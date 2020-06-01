@@ -78,7 +78,7 @@ function doLogin()
 	document.getElementById("loginResult").innerHTML = "";
 
 	var jsonPayload = '{"login" : "' + login + '", "password" : "' + hash + '"}';
-	var url = urlBase + '/api/user/login';
+	var url = urlBase + '/api/user/login.' + extension;
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, false);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
@@ -164,13 +164,32 @@ function returnToContactPage()
 
 function getTitle()
 {
-	if(user === "")
+    readCookie();
+    var url = urlBase + '/api/user/get/' + userId;
+
+    var xhr = new XMLHttpRequest();
+	xhr.open("GET", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		xhr.onreadystatechange = function()
+		{
+		    json = JSON.parse( xhr.responseText );
+
+			if (this.readyState == 4 && this.status == 200)
+			{
+				document.getElementById("userNameTitle").innerHTML = json.Login + "'s  Knightacts";
+			}
+			else
+			{
+			    document.getElementById("userNameTitle").innerHTML = "My Knightacts";
+			}
+		};
+		xhr.send(null);
+	}
+	catch(err)
 	{
 		document.getElementById("userNameTitle").innerHTML = "My Knightacts";
-	}
-	else
-	{
-		document.getElementById("userNameTitle").innerHTML = user.concat("'s  Knightacts");
 	}
 }
 
@@ -202,7 +221,7 @@ function addContact()
 	else
 	{
 		var jsonPayload = '{"FirstName" : "' + firstName + '", "LastName" : "' +lastName+ '", "Email" : "' +emailContact+ '", "PhoneNumber" : "' +phoneNumber+ '", "Address" : "' +addressContact+ '", "AdditionalNotes" : "' +notesContact+ '", "UserID" : ' + userId + '}';
-		var url = urlBase + '/api/contact/create';
+		var url = urlBase + '/api/contact/create.' + extension;
 
 		var xhr = new XMLHttpRequest();
 		xhr.open("POST", url, true);
@@ -235,8 +254,15 @@ function addContact()
 function searchContacts()
 {
 	var srch = document.getElementById("searchBar").value;
-	var contactList = "  ";
+	var contactList = "";
 	var input, filter, ul, li, a, i, txtValue;
+
+    if (srch == '')
+    {
+        hideAllContacts();
+        return;
+    }
+
 
 	// This block of code does a "live"
     input = document.getElementById("searchBar");
@@ -246,7 +272,7 @@ function searchContacts()
     for (i = 0; i < li.length; i++) {
         a = li[i].getElementsByTagName("a")[0];
         txtValue = a.textContent || a.innerText;
-        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        if ((txtValue.toUpperCase().indexOf(filter) > -1) && (a.id != "message")) {
             li[i].style.display = "";
         } else {
 			li[i].style.display = "none";
@@ -411,6 +437,19 @@ function getAllContactsUser(id)
 
 			if (usersJson.status)
 			{
+			    var content = document.createElement("a");
+				content.id = "message";
+				content.setAttribute("onclick", "showAllContacts();");
+
+				content.innerHTML = "Start a search to show your contacts<br>click me to show all of your contacts";
+
+				var contact = document.createElement("li");
+				contact.style.display = "";
+				contact.appendChild(content);
+
+				div.appendChild(contact);
+
+
 			    for (i = 0; i < usersJson.contacts.length; i++)
 			    {
 			        var content = document.createElement("a");
@@ -420,6 +459,7 @@ function getAllContactsUser(id)
 			        content.innerHTML = usersJson.contacts[i].FirstName + " " + usersJson.contacts[i].LastName;
 
 			        var contact = document.createElement("li");
+			        contact.style.display = "none";
 	                contact.appendChild(content);
 
 	                div.appendChild(contact);
@@ -428,11 +468,12 @@ function getAllContactsUser(id)
 			else
 			{
 				var content = document.createElement("a");
-				content.id = "contact";
+				content.id = "message";
 
 				content.innerHTML = "No contacts found";
 
 				var contact = document.createElement("li");
+				contact.style.display = "none";
 				contact.appendChild(content);
 
 				div.appendChild(contact);
@@ -445,4 +486,38 @@ function getAllContactsUser(id)
 		//document.getElementById("editResult").innerHTML = err.message;
 		alert(err.message);
 	}
+}
+
+function showAllContacts()
+{
+    ul = document.getElementById("myUL");
+    li = ul.getElementsByTagName("li");
+    for (i = 0; i < li.length; i++) {
+        var a = li[i].getElementsByTagName("a")[0];
+        if (a.id != "message")
+        {
+            li[i].style.display = "";
+        }
+        else
+        {
+            li[i].style.display = "none";
+        }
+    }
+}
+
+function hideAllContacts()
+{
+    ul = document.getElementById("myUL");
+    li = ul.getElementsByTagName("li");
+    for (i = 0; i < li.length; i++) {
+        var a = li[i].getElementsByTagName("a")[0];
+        if (a.id == "message")
+        {
+            li[i].style.display = "";
+        }
+        else
+        {
+            li[i].style.display = "none";
+        }
+    }
 }
