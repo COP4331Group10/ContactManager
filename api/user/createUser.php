@@ -13,19 +13,32 @@ switch($requestMethod) {
 	case 'POST':
 		$user->setUsername($data->username);
 		$user->setPassword($data->password);
-		
+
+		$userInfo = $user->getUser();
+
+		if (!empty($userInfo))
+		{
+			header("HTTP/1.0 409 Conflict");
+			$js_encode = json_encode(array('status'=>FALSE, 'message'=>'User creation failed'), true);
+			echo $js_encode;
+			break;
+		}
+
 		$userInfo = $user->createUser();
- 
+
 		if(!empty($userInfo)) {
 			header("HTTP/1.0 200 OK");
-        } else {
+			$js_encode = json_encode(array('status'=>TRUE, 'message'=>'User created Successfully'), true);
+		} else {
 			header("HTTP/1.0 409 Conflict");
-        }
+			$js_encode = json_encode(array('status'=>FALSE, 'message'=>'User creation failed'), true);
+		}
+
 		header('Content-Type: application/json');
-		echo $js_encode;	
+		echo $js_encode;
 		break;
 	default:
 		header("HTTP/1.0 405 Method Not Allowed");
-	break;
+		break;
 }
-?>	
+?>
