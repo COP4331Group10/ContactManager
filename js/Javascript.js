@@ -2,6 +2,7 @@ var urlBase = 'http://knightacts.ueuo.com';
 var extension = 'php';
 
 var userId = 0;
+var user = "";
 
 var usersJson = null;
 
@@ -22,7 +23,7 @@ function doSignUp()
 
 	document.getElementById("signUpResult").innerHTML = "";
 	var jsonPayload = '{"username" : "' + userName + '", "password" : "' + hash + '"}';
-	var url = urlBase + '/api/user/create.' + extension;
+	var url = urlBase + '/api/user/create';
 
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, false);
@@ -55,7 +56,7 @@ function doSignUp()
 		document.getElementById("signUpResult").innerHTML = err.message;
 	}
 
-	// if accoutn is created, go to logged in page
+	// if account is created, go to logged in page
 	if (createdFlag)
 	{
 	    saveCookie();
@@ -72,10 +73,12 @@ function doLogin()
 	var password = document.getElementById("loginPassword").value;
 	var hash = md5( password );
 
+	user = login;
+
 	document.getElementById("loginResult").innerHTML = "";
 
 	var jsonPayload = '{"login" : "' + login + '", "password" : "' + hash + '"}';
-	var url = urlBase + '/api/user/login.' + extension;
+	var url = urlBase + '/api/user/login';
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, false);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
@@ -159,6 +162,18 @@ function returnToContactPage()
 	getAllContacts();
 }
 
+function getTitle()
+{
+	if(user === "")
+	{
+		document.getElementById("userNameTitle").innerHTML = "My Knightacts";
+	}
+	else
+	{
+		document.getElementById("userNameTitle").innerHTML = user.concat("'s  Knightacts");
+	}
+}
+
 function goToAddContact()
 {
 	window.location.href = "createNewContact.html";
@@ -187,7 +202,7 @@ function addContact()
 	else
 	{
 		var jsonPayload = '{"FirstName" : "' + firstName + '", "LastName" : "' +lastName+ '", "Email" : "' +emailContact+ '", "PhoneNumber" : "' +phoneNumber+ '", "Address" : "' +addressContact+ '", "AdditionalNotes" : "' +notesContact+ '", "UserID" : ' + userId + '}';
-		var url = urlBase + '/api/contact/create.' + extension;
+		var url = urlBase + '/api/contact/create';
 
 		var xhr = new XMLHttpRequest();
 		xhr.open("POST", url, true);
@@ -308,7 +323,7 @@ function editPage()
 		var url = urlBase + '/api/contact/update';
 
 		var xhr = new XMLHttpRequest();
-		xhr.open("POST", url, true);
+		xhr.open("PUT", url, true);
 		xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 		try
 		{
@@ -335,8 +350,6 @@ function editPage()
 
 function goToEditPage(id)
 {
-	//readCookie();
-
 	window.location.href = "editContact.html?id=" + Number(id);
 }
 
@@ -352,7 +365,7 @@ function deleteContact()
 		var url = urlBase + '/api/contact/delete/' + Number(urlParams.get('id'));
 		var jsonPayload = null;
 		var xhr = new XMLHttpRequest();
-		xhr.open("POST", url, true);
+		xhr.open("DELETE", url, true);
 		xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 		try
 		{
