@@ -365,7 +365,7 @@ function deleteContact()
 		var url = urlBase + '/api/contact/delete/' + Number(urlParams.get('id'));
 		var jsonPayload = null;
 		var xhr = new XMLHttpRequest();
-		xhr.open("DELETE", url, true);
+		xhr.open("POST", url, true);
 		xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 		try
 		{
