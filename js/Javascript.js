@@ -473,7 +473,7 @@ function getAllContactsUser(id)
 				content.innerHTML = "No contacts found";
 
 				var contact = document.createElement("li");
-				contact.style.display = "none";
+				contact.style.display = "";
 				contact.appendChild(content);
 
 				div.appendChild(contact);
