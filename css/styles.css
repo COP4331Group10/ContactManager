@@ -369,6 +369,13 @@ label
     margin-left: 12%;
 }
 
+#required
+{
+    font-family: 'Varela Round', 'Calibri', Arial;
+    color: darkred;
+    font-size: 0.6em;
+}
+
 /* Format for black bar w/ search and add */
 .blackBar
 {
